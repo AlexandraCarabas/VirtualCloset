@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/material_dynamic_neutral80">
+
+    <View
+        android:id="@+id/topView2"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:background="@color/material_dynamic_primary50" />
+
+    <TextView
+        android:id="@+id/myCloset"
+        android:layout_width="116dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/topView2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="252dp"
+        android:layout_marginBottom="13dp"
+        android:text="MyCloset"
+        android:textSize="24dp" />
+
+    <ImageView
+        android:id="@+id/search"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="339dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="48dp"
+        app:srcCompat="@drawable/search_icon" />
+
+    <ImageView
+        android:id="@+id/tops_icon"
+        android:layout_width="118dp"
+        android:layout_height="102dp"
+        android:layout_below="@+id/topView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/tops_icon" />
+
+    <ImageView
+        android:id="@+id/bottoms_icon"
+        android:layout_width="118dp"
+        android:layout_height="102dp"
+        android:layout_below="@+id/topView2"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="41dp"
+        android:layout_toEndOf="@+id/tops_icon"
+        app:srcCompat="@drawable/bottoms_icon" />
+
+    <ImageView
+        android:id="@+id/dresses_icon"
+        android:layout_width="118dp"
+        android:layout_height="102dp"
+        android:layout_below="@+id/topView2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toEndOf="@+id/bottoms_icon"
+        app:srcCompat="@drawable/dress_icon" />
+
+    <ImageView
+        android:id="@+id/accessories_icon"
+        android:layout_width="118dp"
+        android:layout_height="102dp"
+        android:layout_below="@+id/tops_icon"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/acessories_icon" />
+
+    <ImageView
+        android:id="@+id/bags_icon"
+        android:layout_width="118dp"
+        android:layout_height="102dp"
+        android:layout_below="@+id/bottoms_icon"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="41dp"
+        android:layout_toEndOf="@+id/accessories_icon"
+        app:srcCompat="@drawable/bags_icon" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="118dp"
+        android:layout_height="102dp"
+        android:layout_below="@+id/dresses_icon"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toEndOf="@+id/bags_icon"
+        app:srcCompat="@drawable/shoes_icon" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

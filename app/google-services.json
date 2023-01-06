@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "325881612307",
+    "firebase_url": "https://virtualcloset-a4de1-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "virtualcloset-a4de1",
+    "storage_bucket": "virtualcloset-a4de1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325881612307:android:c627e89862de09fe8ad7e6",
+        "android_client_info": {
+          "package_name": "com.example.virtualcloset"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325881612307-tlu9pl3lobbmkstgklcl0eckvdrr3ht5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUJc57xFBg66LBLTL20Id_eIWpZU6sDao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325881612307-tlu9pl3lobbmkstgklcl0eckvdrr3ht5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
