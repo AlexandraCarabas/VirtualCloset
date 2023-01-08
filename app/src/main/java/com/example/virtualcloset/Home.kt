@@ -45,36 +45,36 @@ class Home : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        firebaseAuth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
-        databaseReference = database?.reference!!.child("profile")
-
-        val user = firebaseAuth.currentUser
-        val userReference = databaseReference?.child(user?.uid!!)
-
-        userReference?.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val nameText:TextView = view.findViewById(R.id.name_textView)
-
-                nameText.text = snapshot.child("name").value.toString()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                //TODO("Not yet implemented")
-            }
-        })
-
-        val logoutBtn:Button = view.findViewById(R.id.btn_logout)
-
-        logoutBtn.setOnClickListener {
-            firebaseAuth.signOut()
-//            val intent = Intent(getActivity(),SignInActivity::class.java)
-//            getActivity()?.startActivity(intent)
-            requireActivity().run {
-                startActivity(Intent(this,SignInActivity::class.java))
-                finish()
-            }
-        }
+//        firebaseAuth = FirebaseAuth.getInstance()
+//        database = FirebaseDatabase.getInstance()
+//        databaseReference = database?.reference!!.child("profile")
+//
+//        val user = firebaseAuth.currentUser
+//        val userReference = databaseReference?.child(user?.uid!!)
+//
+//        userReference?.addValueEventListener(object: ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                val nameText:TextView = view.findViewById(R.id.name_textView)
+//
+//                nameText.text = snapshot.child("name").value.toString()
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                //TODO("Not yet implemented")
+//            }
+//        })
+//
+//        val logoutBtn:Button = view.findViewById(R.id.btn_logout)
+//
+//        logoutBtn.setOnClickListener {
+//            firebaseAuth.signOut()
+////            val intent = Intent(getActivity(),SignInActivity::class.java)
+////            getActivity()?.startActivity(intent)
+//            requireActivity().run {
+//                startActivity(Intent(this,SignInActivity::class.java))
+//                finish()
+//            }
+//        }
 
         return view
     }

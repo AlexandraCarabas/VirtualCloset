@@ -4,9 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.example.virtualcloset.databinding.ActivitySignInBinding
 import com.example.virtualcloset.databinding.ActivitySignUpBinding
+import com.example.virtualcloset.firestore.FirestoreClass
+import com.example.virtualcloset.models.User
 import com.google.firebase.auth.FirebaseAuth
 
 class SignInActivity : BaseActivity() {
@@ -37,8 +40,6 @@ class SignInActivity : BaseActivity() {
     }
 
     private fun validateSignIn():Boolean {
-        binding = ActivitySignInBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         return when{
 
@@ -59,8 +60,6 @@ class SignInActivity : BaseActivity() {
     }
 
     private fun signInUser() {
-        binding = ActivitySignInBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         if(validateSignIn()) {
             val email = binding.inputEmail.text.toString().trim {it <= ' '}
@@ -69,8 +68,7 @@ class SignInActivity : BaseActivity() {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener{ task ->
                     if(task.isSuccessful){
-                        //TODO - Send user to Navigate Activity
-                        showErrorSnackBar("You are signed in successfully", false)
+                        FirestoreClass().getUserDetails(this@SignInActivity)
                     }else{
                         showErrorSnackBar(task.exception!!.message.toString(), true)
                     }
@@ -78,13 +76,15 @@ class SignInActivity : BaseActivity() {
         }
     }
 
+    fun userSignedInSuccess(user: User) {
+        Log.i("Name: ", user.name)
+        Log.i("Email: ", user.email)
+
+        startActivity(Intent(this@SignInActivity, NavigationActivity::class.java))
+        finish()
+    }
 
     override fun onStart() {
         super.onStart()
-
-        if(firebaseAuth.currentUser != null){
-            val intent = Intent(this,NavigationActivity::class.java)
-            startActivity(intent)
-        }
     }
 }
