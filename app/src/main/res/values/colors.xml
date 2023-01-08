@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="shrine_theme_light_surface"></color>
+    <color name="colorSnackBarSucces">#8BC34A</color>
+    <color name="colorSnackBarError">#F72400</color>
 </resources>

@@ -7,5 +7,12 @@
     <string name="password_label">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hello blank fragment!</string>
+    <string name="err_msg_name_empty">Name field cannot be empty!</string>
+    <string name="err_msg_email_empty">Email field cannot be empty!</string>
+    <string name="err_msg_pass_empty">Password field cannot be empty!</string>
+    <string name="err_msg_confirm_pass_empty">Confirm Password field cannot be empty!</string>
+    <string name="err_msg_pass_mismatch">Password and Confirm Password does not match!</string>
+    <string name="register_successful">Register Successful</string>
+    <string name="login_successful">Login Successful</string>
 </resources>
