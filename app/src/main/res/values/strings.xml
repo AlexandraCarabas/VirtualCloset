@@ -15,4 +15,5 @@
     <string name="err_msg_pass_mismatch">Password and Confirm Password does not match!</string>
     <string name="register_successful">Register Successful</string>
     <string name="login_successful">Login Successful</string>
+    <string name="register_success">You are registered successfully</string>
 </resources>
