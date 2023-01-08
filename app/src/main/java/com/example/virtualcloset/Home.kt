@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.example.virtualcloset.databinding.ActivitySignInBinding
+import com.example.virtualcloset.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -26,9 +28,7 @@ class Home : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var firebaseAuth: FirebaseAuth
-    private var databaseReference : DatabaseReference? = null
-    private var database: FirebaseDatabase? = null
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +36,7 @@ class Home : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -45,36 +46,7 @@ class Home : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-//        firebaseAuth = FirebaseAuth.getInstance()
-//        database = FirebaseDatabase.getInstance()
-//        databaseReference = database?.reference!!.child("profile")
-//
-//        val user = firebaseAuth.currentUser
-//        val userReference = databaseReference?.child(user?.uid!!)
-//
-//        userReference?.addValueEventListener(object: ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                val nameText:TextView = view.findViewById(R.id.name_textView)
-//
-//                nameText.text = snapshot.child("name").value.toString()
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                //TODO("Not yet implemented")
-//            }
-//        })
-//
-//        val logoutBtn:Button = view.findViewById(R.id.btn_logout)
-//
-//        logoutBtn.setOnClickListener {
-//            firebaseAuth.signOut()
-////            val intent = Intent(getActivity(),SignInActivity::class.java)
-////            getActivity()?.startActivity(intent)
-//            requireActivity().run {
-//                startActivity(Intent(this,SignInActivity::class.java))
-//                finish()
-//            }
-//        }
+        binding = FragmentHomeBinding.inflate(layoutInflater)
 
         return view
     }

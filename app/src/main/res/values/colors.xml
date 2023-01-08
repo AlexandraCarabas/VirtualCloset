@@ -10,4 +10,5 @@
     <color name="shrine_theme_light_surface"></color>
     <color name="colorSnackBarSucces">#8BC34A</color>
     <color name="colorSnackBarError">#F72400</color>
+    <color name="lightGrey">#F5F5F5</color>
 </resources>
