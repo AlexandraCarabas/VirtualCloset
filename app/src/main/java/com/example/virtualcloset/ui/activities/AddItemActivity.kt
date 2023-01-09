@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.ActivityAddItemBinding
 import com.example.virtualcloset.utils.Constants
+import com.example.virtualcloset.utils.GlideLoader
 import java.io.IOException
 import java.util.jar.Manifest
 
@@ -123,7 +124,8 @@ class AddItemActivity : BaseActivity() {
                 try {
                     val selectedImageFileUri = data.data!!
 
-                    binding.ivItemPhoto.setImageURI(selectedImageFileUri)
+                    //binding.ivItemPhoto.setImageURI(selectedImageFileUri)
+                    GlideLoader(this).loadUserPicture(selectedImageFileUri, binding.ivItemPhoto)
                 }catch ( e: IOException) {
                     e.printStackTrace()
                     Toast.makeText(
