@@ -16,4 +16,5 @@
     <string name="register_successful">Register Successful</string>
     <string name="login_successful">Login Successful</string>
     <string name="register_success">You are registered successfully</string>
+    <string name="please_click_back_again_to_exit">Please click back again to exit!</string>
 </resources>

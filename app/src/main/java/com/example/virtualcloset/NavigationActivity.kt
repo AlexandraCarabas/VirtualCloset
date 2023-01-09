@@ -9,7 +9,7 @@ import com.example.virtualcloset.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
-class NavigationActivity : AppCompatActivity() {
+class NavigationActivity : BaseActivity() {
 
     private val homeFragment = Home()
     private val closetFragment = Closet()
@@ -51,9 +51,8 @@ class NavigationActivity : AppCompatActivity() {
         true
     }
 
-    private fun replaceFragment(fragment: Fragment){
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_layout, fragment)
-        transaction.commit()
+    override fun onBackPressed() {
+        doubleBackToExit()
     }
+
 }
