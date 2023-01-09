@@ -8,6 +8,7 @@ import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.ActivitySignInBinding
 import com.example.virtualcloset.firestore.FirestoreClass
 import com.example.virtualcloset.models.User
+import com.example.virtualcloset.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 
 class SignInActivity : BaseActivity() {
@@ -79,6 +80,7 @@ class SignInActivity : BaseActivity() {
         Log.i("Email: ", user.email)
 
         startActivity(Intent(this@SignInActivity, NavigationActivity::class.java))
+        intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
         finish()
     }
 

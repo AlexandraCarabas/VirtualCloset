@@ -1,14 +1,17 @@
 package com.example.virtualcloset.ui.fragments
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.virtualcloset.databinding.FragmentHomeBinding
-import com.google.firebase.database.*
 import com.example.virtualcloset.R
+import com.example.virtualcloset.models.User
+import com.example.virtualcloset.utils.Constants
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +28,9 @@ class Home : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var myTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +50,17 @@ class Home : Fragment() {
 
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
+        val sharedPreferences = this.getActivity()?.getSharedPreferences(Constants.VIRTUALCLOSET_PREFERENCES, Context.MODE_PRIVATE)
+        val username = sharedPreferences?.getString(Constants.SIGNED_IN_USERNAME, "")!!
+//        myTextView = binding.nameTextView
+//
+//        val bundle = arguments
+//        val message = bundle!!.getString("mText")
+//
+//        myTextView.text = message
+        //binding.nameTextView.text =
+        val mName : TextView = view.findViewById<TextView>(R.id.name_textView)
+        mName.text = username
         return view
     }
 

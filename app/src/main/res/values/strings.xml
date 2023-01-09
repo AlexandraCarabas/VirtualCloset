@@ -17,4 +17,6 @@
     <string name="login_successful">Login Successful</string>
     <string name="register_success">You are registered successfully</string>
     <string name="please_click_back_again_to_exit">Please click back again to exit!</string>
+    <string name="read_storage_permision_denied">You denied permission for storage. You can allow it from settings.</string>
+    <string name="image_selection_failed">Image selection failed!</string>
 </resources>

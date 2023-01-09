@@ -22,7 +22,7 @@
             android:paddingStart="@dimen/toolbar_title_paddingStart"
             android:paddingEnd="0dp"
             android:text="Add New Item"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="@dimen/toolbar_title_text_size"
             android:textStyle="bold"/>
     </androidx.appcompat.widget.Toolbar>
@@ -67,6 +67,43 @@
 
             </FrameLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fl_item_image">
+
+                <ImageView
+                    android:id="@+id/iv_take_photo"
+                    app:srcCompat="@drawable/ic_baseline_add_a_photo_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/round_bg"
+                    android:padding="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/iv_upload_photo"
+                    app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="100dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/round_bg"
+                    android:padding="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_item_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -77,7 +114,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fl_item_image">
+                app:layout_constraintTop_toBottomOf="@+id/cl_buttons">
 
                 <EditText
                     android:id="@+id/et_item_name"

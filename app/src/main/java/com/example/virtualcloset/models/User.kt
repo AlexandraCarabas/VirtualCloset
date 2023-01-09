@@ -1,5 +1,9 @@
 package com.example.virtualcloset.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 class User (
     val id: String = "",
     val name: String = "",
@@ -7,4 +11,4 @@ class User (
     val image: String = "",
     val gender: String = "",
     val profileCompleted: Int = 0
-        )
+        ):Parcelable
