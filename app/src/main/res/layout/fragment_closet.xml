@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_dynamic_neutral80"
-    tools:context=".Closet">
+    tools:context="ui.fragments.Closet">
 
     <View
         android:id="@+id/topView2"

@@ -1,11 +1,10 @@
-package com.example.virtualcloset
+package com.example.virtualcloset.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.os.Handler
-import android.os.Message
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.virtualcloset.R
 import com.google.android.material.snackbar.Snackbar
 
 open class BaseActivity : AppCompatActivity() {

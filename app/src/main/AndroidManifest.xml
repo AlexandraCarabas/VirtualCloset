@@ -16,22 +16,22 @@
         android:theme="@style/Theme.VirtualCloset"
         tools:targetApi="31">
         <activity
-            android:name=".AddItemActivity"
+            android:name=".ui.activities.AddItemActivity"
             android:exported="false" />
         <activity
-            android:name=".BaseActivity"
+            android:name=".ui.activities.BaseActivity"
             android:exported="false" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".ui.activities.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".NavigationActivity"
+            android:name=".ui.activities.NavigationActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ui.activities.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

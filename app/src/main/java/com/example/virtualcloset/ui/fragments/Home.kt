@@ -1,17 +1,14 @@
-package com.example.virtualcloset
+package com.example.virtualcloset.ui.fragments
 
-import android.content.Intent
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import com.example.virtualcloset.databinding.ActivitySignInBinding
 import com.example.virtualcloset.databinding.FragmentHomeBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.example.virtualcloset.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

@@ -1,10 +1,12 @@
-package com.example.virtualcloset
+package com.example.virtualcloset.ui.activities
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.virtualcloset.ui.fragments.Closet
+import com.example.virtualcloset.ui.fragments.Home
+import com.example.virtualcloset.R
 import com.example.virtualcloset.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView

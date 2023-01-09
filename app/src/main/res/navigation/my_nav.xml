@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/home2"
-        android:name="com.example.virtualcloset.Home"
+        android:name="com.example.virtualcloset.ui.fragments.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/closet"
-        android:name="com.example.virtualcloset.Closet"
+        android:name="com.example.virtualcloset.ui.fragments.Closet"
         android:label="fragment_closet"
         tools:layout="@layout/fragment_closet" />
 </navigation>

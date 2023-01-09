@@ -1,13 +1,11 @@
-package com.example.virtualcloset
+package com.example.virtualcloset.ui.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.widget.Toast
+import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.ActivitySignInBinding
-import com.example.virtualcloset.databinding.ActivitySignUpBinding
 import com.example.virtualcloset.firestore.FirestoreClass
 import com.example.virtualcloset.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -22,15 +20,15 @@ class SignInActivity : BaseActivity() {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        firebaseAuth = FirebaseAuth.getInstance()
-        val currentUser = firebaseAuth.currentUser
-        if(currentUser!=null){
-            val intent = Intent(this,NavigationActivity::class.java)
-            startActivity(intent)
-        }
+//        firebaseAuth = FirebaseAuth.getInstance()
+//        val currentUser = firebaseAuth.currentUser
+//        if(currentUser!=null){
+//            val intent = Intent(this, NavigationActivity::class.java)
+//            startActivity(intent)
+//        }
 
         binding.textViewSignIn.setOnClickListener{
-            val intent = Intent(this,SignUpActivity::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
