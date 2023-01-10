@@ -79,7 +79,7 @@ class SignInActivity : BaseActivity() {
         Log.i("Name: ", user.name)
         Log.i("Email: ", user.email)
 
-        startActivity(Intent(this@SignInActivity, NavigationActivity::class.java))
+        startActivity(Intent(this@SignInActivity, AddItemActivity::class.java))
         intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
         finish()
     }

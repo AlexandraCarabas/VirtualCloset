@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import com.example.virtualcloset.models.Item
 import com.example.virtualcloset.ui.activities.SignInActivity
 import com.example.virtualcloset.ui.activities.SignUpActivity
 import com.example.virtualcloset.models.User
+import com.example.virtualcloset.ui.activities.AddItemActivity
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -32,6 +34,27 @@ class FirestoreClass {
                     e
                 )
             }
+    }
+
+    fun addItemToDatabase(activity: AddItemActivity, itemInfo: Item) {
+
+        var curentUserID : String = getCurrentUserID()
+
+        val items : String = Constants.USERS+"/"+ curentUserID+"/"+Constants.ITEMS
+        mFirestore.collection(items)
+            .document(itemInfo.id)
+            .set(itemInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.itemAddedSuccessfully()
+            }
+            .addOnFailureListener { e ->
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while addind item.",
+                    e
+                )
+            }
+
     }
 
     fun getCurrentUserID():String {

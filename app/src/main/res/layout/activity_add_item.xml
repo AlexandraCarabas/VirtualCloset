@@ -14,6 +14,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/iv_arrow_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_arrow_left_24"/>
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
@@ -132,33 +138,40 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_item_color"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <LinearLayout
+                android:id="@+id/ll_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_item_name">
 
-                <EditText
-                    android:id="@+id/et_item_color"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:text="Color:"
+                    android:textSize="16sp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:background="@drawable/round_border"
-                    android:drawablePadding="16dp"
-                    android:ems="10"
-                    android:hint="Color"
-                    android:inputType="text"
-                    android:padding="16dp" />
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/black"
+                    android:gravity="center"/>
+                <Spinner
+                    android:id="@+id/colorSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:spinnerMode="dialog"
+                    android:background="@drawable/color_blob"
+                    android:layout_marginEnd="32dp"/>
+            </LinearLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_item_pattern"
@@ -170,7 +183,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_item_color">
+                app:layout_constraintTop_toBottomOf="@+id/ll_color">
 
                 <EditText
                     android:id="@+id/et_item_pattern"
@@ -188,8 +201,8 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_item_fabric"
+            <LinearLayout
+                android:id="@+id/ll_item_category"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -200,21 +213,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_item_pattern">
 
-                <EditText
-                    android:id="@+id/et_item_fabric"
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:text="Category:"
+                    android:textSize="16sp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/black"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/tv_item_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="32dp"
                     android:background="@drawable/round_border"
+                    android:layout_gravity="center"
+                    android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
                     android:drawablePadding="16dp"
                     android:ems="10"
-                    android:hint="Fabric"
-                    android:inputType="text"
                     android:padding="16dp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_item_size"
@@ -226,7 +247,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_item_fabric">
+                app:layout_constraintTop_toBottomOf="@+id/ll_item_category">
 
                 <EditText
                     android:id="@+id/et_item_size"
@@ -244,8 +265,8 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_item_type"
+            <LinearLayout
+                android:id="@+id/ll_item_style"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -256,21 +277,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_item_size">
 
-                <EditText
-                    android:id="@+id/et_item_type"
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:text="Style:"
+                    android:textSize="16sp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/black"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/tv_item_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="32dp"
                     android:background="@drawable/round_border"
+                    android:layout_gravity="center"
+                    android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
                     android:drawablePadding="16dp"
                     android:ems="10"
-                    android:hint="Item Name"
-                    android:inputType="text"
+                    android:hint="Style"
                     android:padding="16dp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_add_item"
@@ -288,7 +318,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_item_type" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_item_style" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

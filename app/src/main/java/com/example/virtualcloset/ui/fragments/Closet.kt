@@ -1,11 +1,14 @@
 package com.example.virtualcloset.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.virtualcloset.R
+import com.example.virtualcloset.databinding.FragmentClosetBinding
+import com.example.virtualcloset.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,12 +25,15 @@ class Closet : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var binding: FragmentClosetBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -35,7 +41,15 @@ class Closet : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_closet, container, false)
+        val view = inflater.inflate(R.layout.fragment_closet, container, false)
+
+        binding = FragmentClosetBinding.inflate(layoutInflater)
+
+//        binding.topsIcon.setOnClickListener {
+//            this.activity.StartActivity(Intent(this.activity))
+//        }
+
+        return view
     }
 
     companion object {
