@@ -105,4 +105,14 @@
         android:layout_toEndOf="@+id/bags_icon"
         app:srcCompat="@drawable/shoes_icon" />
 
+    <ImageView
+        android:id="@+id/ivAddItem"
+        android:layout_width="95dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-4dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_baseline_add_circle_outline_24" />
+
 </RelativeLayout>

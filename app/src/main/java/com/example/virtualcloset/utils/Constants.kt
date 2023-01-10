@@ -8,6 +8,7 @@ object Constants {
     const val EXTRA_USER_DETAILS: String = "extra_user_details"
 
     const val ITEMS: String = "items"
+    const val CATEGORY: String ="category"
 
     const val CAMERA_PERMISSIONS_CODE = 1
     const val CAMERA_REQUEST_CODE = 2

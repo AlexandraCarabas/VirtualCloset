@@ -19,22 +19,7 @@
         android:theme="@style/Theme.VirtualCloset"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.ShoesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.BagsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.AccessoriesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.DressesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.BottomsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.TopsActivity"
+            android:name=".ui.activities.CategoryItemsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.AddItemActivity"

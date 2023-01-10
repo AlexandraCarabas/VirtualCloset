@@ -11,6 +11,7 @@ import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.FragmentClosetBinding
 import com.example.virtualcloset.databinding.FragmentHomeBinding
 import com.example.virtualcloset.ui.activities.*
+import com.example.virtualcloset.utils.Constants
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,32 +61,38 @@ class Closet : Fragment() {
 
 
         topsView.setOnClickListener {
-            val intent = Intent(this.activity,TopsActivity::class.java)
+            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
+            intent.putExtra(Constants.CATEGORY, 0)
             getActivity()?.startActivity(Intent(intent))
         }
 
         bottomsView.setOnClickListener {
-            val intent = Intent(this.activity,BottomsActivity::class.java)
+            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
+            intent.putExtra(Constants.CATEGORY, 1)
             getActivity()?.startActivity(Intent(intent))
         }
 
         dressesView.setOnClickListener {
-            val intent = Intent(this.activity,DressesActivity::class.java)
+            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
+            intent.putExtra(Constants.CATEGORY, 2)
             getActivity()?.startActivity(Intent(intent))
         }
 
         accessoriesView.setOnClickListener {
-            val intent = Intent(this.activity,AccessoriesActivity::class.java)
+            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
+            intent.putExtra(Constants.CATEGORY, 3)
             getActivity()?.startActivity(Intent(intent))
         }
 
         bagsView.setOnClickListener {
-            val intent = Intent(this.activity,BagsActivity::class.java)
+            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
+            intent.putExtra(Constants.CATEGORY, 4)
             getActivity()?.startActivity(Intent(intent))
         }
 
         shoesView.setOnClickListener {
-            val intent = Intent(this.activity,ShoesActivity::class.java)
+            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
+            intent.putExtra(Constants.CATEGORY, 5)
             getActivity()?.startActivity(Intent(intent))
         }
 

@@ -5,29 +5,33 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.virtualcloset.R
-import com.example.virtualcloset.databinding.ActivityBagsBinding
-import com.example.virtualcloset.databinding.ActivityTopsBinding
+import com.example.virtualcloset.databinding.ActivityCategoryItemsBinding
 import com.example.virtualcloset.models.Item
 import com.example.virtualcloset.ui.RecyclerViewAdapter
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.firestore.*
 
-class BagsActivity : AppCompatActivity() {
+class CategoryItemsActivity : AppCompatActivity() {
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var itemArrayList: ArrayList<Item>
     private lateinit var myAdapter: RecyclerViewAdapter
     private lateinit var db : FirebaseFirestore
-    private lateinit var binding: ActivityBagsBinding
+    private lateinit var binding: ActivityCategoryItemsBinding
+    var category_position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityBagsBinding.inflate(layoutInflater)
+        binding = ActivityCategoryItemsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val bundle: Bundle? = intent.extras
+        category_position = intent.getIntExtra(Constants.CATEGORY,0)
+        binding.tvTitle.text = Constants.category_options[category_position]
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -42,7 +46,7 @@ class BagsActivity : AppCompatActivity() {
         EventChangeListener()
 
         binding.ivAddItem.setOnClickListener{
-            startActivity(Intent(this@BagsActivity,AddItemActivity::class.java))
+            startActivity(Intent(this,AddItemActivity::class.java))
         }
         binding.ivArrowBack.setOnClickListener {
             onBackPressed()
@@ -60,7 +64,7 @@ class BagsActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
         db.collection(items)
-            .whereEqualTo("category", "Bags")
+            .whereEqualTo(Constants.CATEGORY, Constants.category_options[category_position])
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(
                     value: QuerySnapshot?,
