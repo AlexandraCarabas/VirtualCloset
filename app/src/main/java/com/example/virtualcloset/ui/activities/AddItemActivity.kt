@@ -93,7 +93,9 @@ class AddItemActivity : BaseActivity() {
             }
         }
 
-        binding.ivArrowBack.setOnClickListener {  }
+        binding.ivArrowBack.setOnClickListener {
+            onBackPressed()
+        }
 
         binding.llItemCategory.setOnClickListener {
             categoryDialog()
@@ -340,6 +342,11 @@ class AddItemActivity : BaseActivity() {
             Toast.LENGTH_LONG
         ).show()
         startActivity(Intent(this@AddItemActivity,NavigationActivity::class.java))
+        //onBackPressed()
         finish()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.FragmentClosetBinding
 import com.example.virtualcloset.databinding.FragmentHomeBinding
+import com.example.virtualcloset.ui.activities.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,13 +43,52 @@ class Closet : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_closet, container, false)
+        var view = inflater.inflate(R.layout.fragment_closet, container, false)
 
         binding = FragmentClosetBinding.inflate(layoutInflater)
 
 //        binding.topsIcon.setOnClickListener {
-//            this.activity.StartActivity(Intent(this.activity))
+//            val intent = Intent(activity,AddItemActivity::class.java)
+//            getActivity()?.startActivity(Intent(intent))
 //        }
+        val topsView = view.findViewById<ImageView>(R.id.tops_icon)
+        val bottomsView = view.findViewById<ImageView>(R.id.bottoms_icon)
+        val dressesView = view.findViewById<ImageView>(R.id.dresses_icon)
+        val accessoriesView = view.findViewById<ImageView>(R.id.accessories_icon)
+        val bagsView = view.findViewById<ImageView>(R.id.bags_icon)
+        val shoesView = view.findViewById<ImageView>(R.id.shoesIcon)
+
+
+        topsView.setOnClickListener {
+            val intent = Intent(this.activity,TopsActivity::class.java)
+            getActivity()?.startActivity(Intent(intent))
+        }
+
+        bottomsView.setOnClickListener {
+            val intent = Intent(this.activity,BottomsActivity::class.java)
+            getActivity()?.startActivity(Intent(intent))
+        }
+
+        dressesView.setOnClickListener {
+            val intent = Intent(this.activity,DressesActivity::class.java)
+            getActivity()?.startActivity(Intent(intent))
+        }
+
+        accessoriesView.setOnClickListener {
+            val intent = Intent(this.activity,AccessoriesActivity::class.java)
+            getActivity()?.startActivity(Intent(intent))
+        }
+
+        bagsView.setOnClickListener {
+            val intent = Intent(this.activity,BagsActivity::class.java)
+            getActivity()?.startActivity(Intent(intent))
+        }
+
+        shoesView.setOnClickListener {
+            val intent = Intent(this.activity,ShoesActivity::class.java)
+            getActivity()?.startActivity(Intent(intent))
+        }
+
 
         return view
     }

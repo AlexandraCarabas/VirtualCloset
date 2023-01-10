@@ -2,16 +2,21 @@ package com.example.virtualcloset.ui.fragments
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.example.virtualcloset.databinding.FragmentHomeBinding
 import com.example.virtualcloset.R
 import com.example.virtualcloset.models.User
+import com.example.virtualcloset.ui.activities.SignInActivity
 import com.example.virtualcloset.utils.Constants
+import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +66,13 @@ class Home : Fragment() {
         //binding.nameTextView.text =
         val mName : TextView = view.findViewById<TextView>(R.id.name_textView)
         mName.text = username
+
+        val logout_btn = view.findViewById<Button>(R.id.btn_logout)
+        logout_btn.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            activity?.startActivity(Intent(this.activity,SignInActivity::class.java))
+            activity?.finish()
+        }
         return view
     }
 

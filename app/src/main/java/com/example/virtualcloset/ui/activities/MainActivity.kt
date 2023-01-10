@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
 
         var btn_signIn = findViewById<Button>(R.id.singin_btn)
         btn_signIn.setOnClickListener{
-            //val intent = Intent(this, SignInActivity::class.java)
-            val intent = Intent(this,AddItemActivity::class.java)
+            val intent = Intent(this, SignInActivity::class.java)
+            //val intent = Intent(this,AddItemActivity::class.java)
             startActivity(intent)
         }
     }

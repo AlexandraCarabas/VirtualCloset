@@ -11,8 +11,8 @@ import com.example.virtualcloset.models.User
 import com.example.virtualcloset.ui.activities.AddItemActivity
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.ktx.toObject
 
 class FirestoreClass {
 
@@ -56,6 +56,25 @@ class FirestoreClass {
             }
 
     }
+
+//    fun getItemsFromDatabase(activity: Activity) : ArrayList<Item>{
+//        var curentUserID : String = getCurrentUserID()
+//        //var itemList : ArrayList<Item> =
+//
+////        val items : String = Constants.USERS+"/"+ curentUserID + "/" + Constants.ITEMS
+////        mFirestore.collection(items)
+////            .get()
+////            .addOnSuccessListener { result ->
+////                for(document in result){
+////                    val id = document.id
+////                    val mItem = document.toObject(Item::class.java)
+////                    itemList.add(mItem)
+////                }
+////
+////            }
+//    }
+
+
 
     fun getCurrentUserID():String {
         val currentUser = FirebaseAuth.getInstance().currentUser

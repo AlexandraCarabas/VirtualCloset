@@ -5,8 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +18,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VirtualCloset"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.activities.ShoesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.BagsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.AccessoriesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.DressesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.BottomsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.TopsActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.AddItemActivity"
             android:exported="false" />

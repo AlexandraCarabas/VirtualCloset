@@ -4,21 +4,30 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/drawable/color_blob.xml" value="0.124" />
+        <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/drawable/ic_baseline_add_a_photo_24.xml" value="0.124" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/drawable/round_bg.xml" value="0.1345" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/drawable/round_border.xml" value="0.1345" />
+        <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_accessories.xml" value="0.22826086956521738" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_add_item.xml" value="0.176" />
+        <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_bags.xml" value="0.22826086956521738" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_base.xml" value="0.19427083333333334" />
+        <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_bottoms.xml" value="0.22826086956521738" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_closet.xml" value="0.2" />
+        <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_dresses.xml" value="0.22826086956521738" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_home.xml" value="0.22826086956521738" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_navigation.xml" value="0.2" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_outfits.xml" value="0.22826086956521738" />
+        <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_shoes.xml" value="0.22826086956521738" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_sign_in.xml" value="0.22826086956521738" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_sign_up.xml" value="0.176" />
+        <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/activity_tops.xml" value="0.264" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/color_spinner_bg.xml" value="0.11197916666666667" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/color_spinner_item.xml" value="0.11302083333333333" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/fragment_closet.xml" value="0.1" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/fragment_tops.xml" value="0.11302083333333333" />
+        <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/layout/recyclerview_model.xml" value="0.2" />
         <entry key="..\:/Facultate/SMA/VirtualCloset/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25416666666666665" />
       </map>
     </option>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_closet"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -93,7 +94,7 @@
         app:srcCompat="@drawable/bags_icon" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/shoesIcon"
         android:layout_width="118dp"
         android:layout_height="102dp"
         android:layout_below="@+id/dresses_icon"
