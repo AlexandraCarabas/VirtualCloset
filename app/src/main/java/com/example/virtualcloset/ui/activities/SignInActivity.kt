@@ -21,13 +21,6 @@ class SignInActivity : BaseActivity() {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        firebaseAuth = FirebaseAuth.getInstance()
-//        val currentUser = firebaseAuth.currentUser
-//        if(currentUser!=null){
-//            val intent = Intent(this, NavigationActivity::class.java)
-//            startActivity(intent)
-//        }
-
         binding.textViewSignIn.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)

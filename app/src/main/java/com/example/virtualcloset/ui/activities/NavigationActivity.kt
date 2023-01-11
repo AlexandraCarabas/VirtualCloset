@@ -2,7 +2,6 @@ package com.example.virtualcloset.ui.activities
 
 import android.content.Context
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.virtualcloset.ui.fragments.Closet
@@ -39,9 +38,6 @@ class NavigationActivity : BaseActivity() {
             "Hello $username",
             Toast.LENGTH_LONG
         ).show()
-//        val mBundle = Bundle()
-//        mBundle.putString("mText", username)
-//        homeFragment.arguments = mBundle
         supportFragmentManager.beginTransaction().replace(R.id.frame_layout, homeFragment).commit()
         var bottomNav: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener(bottomListener)

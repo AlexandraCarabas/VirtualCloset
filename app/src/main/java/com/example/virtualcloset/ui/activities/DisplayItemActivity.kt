@@ -6,9 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.View
@@ -27,10 +25,8 @@ import com.example.virtualcloset.utils.ColorList
 import com.example.virtualcloset.utils.ColorObject
 import com.example.virtualcloset.utils.Constants
 import com.example.virtualcloset.utils.GlideLoader
-import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
-import java.lang.Exception
+
 
 class DisplayItemActivity : BaseActivity() {
 

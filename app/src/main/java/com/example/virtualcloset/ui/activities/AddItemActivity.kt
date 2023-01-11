@@ -30,8 +30,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.lang.Exception
-import java.util.jar.Manifest
-import kotlin.random.Random
 
 class AddItemActivity : BaseActivity() {
 

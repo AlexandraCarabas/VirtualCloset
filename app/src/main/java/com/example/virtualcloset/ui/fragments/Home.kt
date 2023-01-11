@@ -10,10 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.navigation.fragment.findNavController
 import com.example.virtualcloset.databinding.FragmentHomeBinding
 import com.example.virtualcloset.R
-import com.example.virtualcloset.models.User
 import com.example.virtualcloset.ui.activities.SignInActivity
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -57,13 +55,6 @@ class Home : Fragment() {
 
         val sharedPreferences = this.getActivity()?.getSharedPreferences(Constants.VIRTUALCLOSET_PREFERENCES, Context.MODE_PRIVATE)
         val username = sharedPreferences?.getString(Constants.SIGNED_IN_USERNAME, "")!!
-//        myTextView = binding.nameTextView
-//
-//        val bundle = arguments
-//        val message = bundle!!.getString("mText")
-//
-//        myTextView.text = message
-        //binding.nameTextView.text =
         val mName : TextView = view.findViewById<TextView>(R.id.name_textView)
         mName.text = username
 
