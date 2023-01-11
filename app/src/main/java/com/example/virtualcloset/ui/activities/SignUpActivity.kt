@@ -21,8 +21,6 @@ class SignUpActivity : BaseActivity() {
 
 private lateinit var binding:ActivitySignUpBinding
 private lateinit var firebaseAuth:FirebaseAuth
-//private var databaseReference: DatabaseReference? = null
-//private var database:FirebaseDatabase? = null
 private lateinit var databaseReference: DatabaseReference
 
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,8 +101,8 @@ private fun signUpUser() {
 
                         FirestoreClass().userSignUp(this@SignUpActivity, user)
 
-                        //FirebaseAuth.getInstance().signOut()
-                        //finish()
+                        FirebaseAuth.getInstance().signOut()
+                        finish()
 
                     } else {
                         showErrorSnackBar(task.exception!!.message.toString(), true)
@@ -113,11 +111,12 @@ private fun signUpUser() {
             )
     }
 }
-fun userSignUpSuccessful() {
-    Toast.makeText(
-        this@SignUpActivity,
-        resources.getString(R.string.register_success),
-        Toast.LENGTH_LONG
-    ).show()
-}
+    fun userSignUpSuccessful() {
+        Toast.makeText(
+            this@SignUpActivity,
+            resources.getString(R.string.register_success),
+            Toast.LENGTH_LONG
+        ).show()
+        startActivity(Intent(this,SignInActivity::class.java))
+    }
 }

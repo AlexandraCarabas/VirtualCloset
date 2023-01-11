@@ -9,8 +9,8 @@ class Item(
     val name: String = "",
     val color: String = "",
     val pattern: String = "",
-    val Category: String = "",
-    val Size: String = "",
-    val Style: String = "",
+    val category: String = "",
+    val size: String = "",
+    val style: String = "",
     val image: String = ""
 ):Parcelable

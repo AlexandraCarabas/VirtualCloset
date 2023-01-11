@@ -9,6 +9,13 @@ object Constants {
 
     const val ITEMS: String = "items"
     const val CATEGORY: String ="category"
+    const val ITEM_NAME: String = "name"
+    const val ITEM_COLOR: String = "color"
+    const val ITEM_PATTERN: String = "pattern"
+    const val ITEM_CATEGORY: String = "category"
+    const val ITEM_SIZE: String = "size"
+    const val ITEM_STYLE: String = "style"
+    const val ITEM_IMAGE: String = "image"
 
     const val CAMERA_PERMISSIONS_CODE = 1
     const val CAMERA_REQUEST_CODE = 2

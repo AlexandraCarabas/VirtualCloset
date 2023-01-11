@@ -13,21 +13,36 @@ import com.example.virtualcloset.models.Item
 class RecyclerViewAdapter(private val itemList: ArrayList<Item>): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     //private val item :ArrayList<Item>
+    private lateinit var mListener: onItemClickListener
 
-    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener){
+        mListener = listener
+    }
+
+    inner class ViewHolder (itemView: View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView){
         var itemImage : ImageView
         var itemName : TextView
 
         init {
             itemImage = itemView.findViewById(R.id.ivItemImage)
             itemName = itemView.findViewById(R.id.tvItemName)
+
+            itemView.setOnClickListener{
+
+                listener.onItemClick(adapterPosition)
+
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recyclerview_model,parent,false)
-        return ViewHolder(itemView)
+        return ViewHolder(itemView, mListener)
     }
 
 

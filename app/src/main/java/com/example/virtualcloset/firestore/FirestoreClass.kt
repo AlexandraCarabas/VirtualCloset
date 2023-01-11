@@ -9,6 +9,7 @@ import com.example.virtualcloset.ui.activities.SignInActivity
 import com.example.virtualcloset.ui.activities.SignUpActivity
 import com.example.virtualcloset.models.User
 import com.example.virtualcloset.ui.activities.AddItemActivity
+import com.example.virtualcloset.ui.activities.DisplayItemActivity
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -55,6 +56,35 @@ class FirestoreClass {
                 )
             }
 
+    }
+
+    fun updateItemToDatabase(activity: Activity, itemID: String, itemHashMap: HashMap<String, Any>){
+        var curentUserID : String = getCurrentUserID()
+
+        val items : String = Constants.USERS+"/"+ curentUserID+"/"+Constants.ITEMS
+        mFirestore.collection(items)
+            .document(itemID)
+            .update(itemHashMap)
+            .addOnSuccessListener {
+                when(activity) {
+                    is DisplayItemActivity -> {
+                        activity.itemUpdatedSuccessfully()
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+//                when(activity) {
+//                    is DisplayItemActivity -> {
+//
+//                    }
+//                }
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error updating item info",
+                    e
+                )
+            }
     }
 
 //    fun getItemsFromDatabase(activity: Activity) : ArrayList<Item>{
