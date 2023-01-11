@@ -1,12 +1,16 @@
 package com.example.virtualcloset.ui.fragments
 
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.FragmentClosetBinding
 import com.example.virtualcloset.databinding.FragmentHomeBinding
@@ -58,6 +62,7 @@ class Closet : Fragment() {
         val accessoriesView = view.findViewById<ImageView>(R.id.accessories_icon)
         val bagsView = view.findViewById<ImageView>(R.id.bags_icon)
         val shoesView = view.findViewById<ImageView>(R.id.shoesIcon)
+        val addItemBtn = view.findViewById<ImageView>(R.id.ivAddItem)
 
 
         topsView.setOnClickListener {
@@ -95,10 +100,30 @@ class Closet : Fragment() {
             intent.putExtra(Constants.CATEGORY, 5)
             getActivity()?.startActivity(Intent(intent))
         }
-
+        addItemBtn.setOnClickListener {
+            val intent = Intent(this.activity, AddItemActivity::class.java)
+            getActivity()?.startActivity(intent)
+        }
 
         return view
     }
+
+//    private fun checkReadStoragePermission(currentActivity: Activity):Boolean{
+//        if(ContextCompat.checkSelfPermission(
+//                currentActivity,
+//                android.Manifest.permission.READ_EXTERNAL_STORAGE
+//            ) == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            return true
+//        } else{
+//            ActivityCompat.requestPermissions(
+//                currentActivity,
+//                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+//                Constants.READ_STORAGE_PERMISSION_CODE
+//            )
+//
+//        }
+//    }
 
     companion object {
         /**
