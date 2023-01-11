@@ -4,13 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.FragmentClosetBinding
 import com.example.virtualcloset.databinding.FragmentHomeBinding
@@ -43,6 +46,8 @@ class Closet : Fragment() {
 
     }
 
+    var permissionsOk : Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,10 +57,6 @@ class Closet : Fragment() {
 
         binding = FragmentClosetBinding.inflate(layoutInflater)
 
-//        binding.topsIcon.setOnClickListener {
-//            val intent = Intent(activity,AddItemActivity::class.java)
-//            getActivity()?.startActivity(Intent(intent))
-//        }
         val topsView = view.findViewById<ImageView>(R.id.tops_icon)
         val bottomsView = view.findViewById<ImageView>(R.id.bottoms_icon)
         val dressesView = view.findViewById<ImageView>(R.id.dresses_icon)
@@ -66,39 +67,93 @@ class Closet : Fragment() {
 
 
         topsView.setOnClickListener {
-            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
-            intent.putExtra(Constants.CATEGORY, 0)
-            getActivity()?.startActivity(Intent(intent))
+            checkReadStoragePermission()
+            if(permissionsOk) {
+                val intent = Intent(this.activity, CategoryItemsActivity::class.java)
+                intent.putExtra(Constants.CATEGORY, 0)
+                getActivity()?.startActivity(Intent(intent))
+            }else{
+                Toast.makeText(
+                    this.requireContext(),
+                    "Storage Permission required for this action! Go to settings",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
         bottomsView.setOnClickListener {
-            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
-            intent.putExtra(Constants.CATEGORY, 1)
-            getActivity()?.startActivity(Intent(intent))
+            checkReadStoragePermission()
+            if(permissionsOk) {
+                val intent = Intent(this.activity, CategoryItemsActivity::class.java)
+                intent.putExtra(Constants.CATEGORY, 1)
+                getActivity()?.startActivity(Intent(intent))
+            }else{
+                Toast.makeText(
+                    this.requireContext(),
+                    "Storage Permission required for this action! Go to settings",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
         dressesView.setOnClickListener {
-            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
-            intent.putExtra(Constants.CATEGORY, 2)
-            getActivity()?.startActivity(Intent(intent))
+            checkReadStoragePermission()
+            if(permissionsOk) {
+                val intent = Intent(this.activity, CategoryItemsActivity::class.java)
+                intent.putExtra(Constants.CATEGORY, 2)
+                getActivity()?.startActivity(Intent(intent))
+            }else{
+                Toast.makeText(
+                    this.requireContext(),
+                    "Storage Permission required for this action! Go to settings",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
         accessoriesView.setOnClickListener {
-            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
-            intent.putExtra(Constants.CATEGORY, 3)
-            getActivity()?.startActivity(Intent(intent))
+            checkReadStoragePermission()
+            if(permissionsOk) {
+                val intent = Intent(this.activity, CategoryItemsActivity::class.java)
+                intent.putExtra(Constants.CATEGORY, 3)
+                getActivity()?.startActivity(Intent(intent))
+            }else{
+                Toast.makeText(
+                    this.requireContext(),
+                    "Storage Permission required for this action! Go to settings",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
         bagsView.setOnClickListener {
-            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
-            intent.putExtra(Constants.CATEGORY, 4)
-            getActivity()?.startActivity(Intent(intent))
+            checkReadStoragePermission()
+            if(permissionsOk) {
+                val intent = Intent(this.activity, CategoryItemsActivity::class.java)
+                intent.putExtra(Constants.CATEGORY, 4)
+                getActivity()?.startActivity(Intent(intent))
+            }else{
+                Toast.makeText(
+                    this.requireContext(),
+                    "Storage Permission required for this action! Go to settings",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
         shoesView.setOnClickListener {
-            val intent = Intent(this.activity,CategoryItemsActivity::class.java)
-            intent.putExtra(Constants.CATEGORY, 5)
-            getActivity()?.startActivity(Intent(intent))
+            checkReadStoragePermission()
+            if(permissionsOk) {
+                val intent = Intent(this.activity, CategoryItemsActivity::class.java)
+                intent.putExtra(Constants.CATEGORY, 5)
+                getActivity()?.startActivity(Intent(intent))
+            }else{
+                Toast.makeText(
+                    this.requireContext(),
+                    "Storage Permission required for this action! Go to settings",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
         addItemBtn.setOnClickListener {
             val intent = Intent(this.activity, AddItemActivity::class.java)
@@ -108,22 +163,43 @@ class Closet : Fragment() {
         return view
     }
 
-//    private fun checkReadStoragePermission(currentActivity: Activity):Boolean{
-//        if(ContextCompat.checkSelfPermission(
-//                currentActivity,
-//                android.Manifest.permission.READ_EXTERNAL_STORAGE
-//            ) == PackageManager.PERMISSION_GRANTED
-//        ) {
-//            return true
-//        } else{
-//            ActivityCompat.requestPermissions(
-//                currentActivity,
-//                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-//                Constants.READ_STORAGE_PERMISSION_CODE
-//            )
-//
-//        }
-//    }
+    private fun checkReadStoragePermission(){
+        if(ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionsOk = true
+        } else{
+            ActivityCompat.requestPermissions(
+                this.requireActivity(),
+                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                Constants.READ_STORAGE_PERMISSION_CODE
+            )
+
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            Constants.READ_STORAGE_PERMISSION_CODE -> {
+                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    permissionsOk = true
+                }else{
+                    Toast.makeText(
+                        this.activity,
+                        "You denied permissions for local storage read. The command will not work",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+
+    }
 
     companion object {
         /**
