@@ -21,6 +21,7 @@
     <string name="image_selection_failed">Image selection failed!</string>
     <string name="err_msg_category_empty">Please choose category!</string>
     <string name="item_added_successfully">Item added successfully.</string>
+    <string name="outfit_added_successfully">Outfit added successfully.</string>
     <string name="err_msg_pattern_empty">Pattern must not be empty!</string>
     <string name="err_msg_size_empty">Size field must not be empty!</string>
 </resources>

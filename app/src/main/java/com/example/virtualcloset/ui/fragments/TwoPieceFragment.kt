@@ -1,15 +1,23 @@
 package com.example.virtualcloset.ui.fragments
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.Window
+import android.widget.*
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -17,9 +25,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.codingstuff.imageslider.ImageAdapter
 import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.FragmentTwoPieceBinding
+import com.example.virtualcloset.firestore.FirestoreClass
 import com.example.virtualcloset.models.Item
+import com.example.virtualcloset.models.Outfit
+import com.example.virtualcloset.ui.activities.NavigationActivity
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.firestore.*
+import org.checkerframework.common.subtyping.qual.Bottom
 import kotlin.math.abs
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,7 +44,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [TwoPieceFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TwoPieceFragment : Fragment() {
+class TwoPieceFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -60,7 +72,16 @@ class TwoPieceFragment : Fragment() {
     private lateinit var dbBags : FirebaseFirestore
     private lateinit var dbAccessories : FirebaseFirestore
     private lateinit var userUid: String
-    private var extra_visible = false
+    private lateinit var itemTop: Item
+    private lateinit var itemBottom: Item
+    private lateinit var itemShoes: Item
+    private lateinit var itemBag: Item
+    private lateinit var itemAccessory: Item
+    private lateinit var itemExtra: Item
+    private lateinit var outfit: Outfit
+    private var isSelectedExtra = false
+    private var isSelectedBag = false
+    private var isSelectedAcc = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +99,7 @@ class TwoPieceFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_two_piece, container, false)
         binding = FragmentTwoPieceBinding.inflate(layoutInflater)
+        outfit = Outfit()
 
         viewPager2Tops = view.findViewById(R.id.vp2_top)
         viewPager2Bottoms = view.findViewById(R.id.vp2_bottom)
@@ -143,49 +165,203 @@ class TwoPieceFragment : Fragment() {
         EventChangeListenerBags()
         EventChangeListenerAccessories()
 
+        val btnAddExtra = view.findViewById<Button>(R.id.btn_add_extra)
+        val ivAddBag = view.findViewById<ImageView>(R.id.iv_add_bag)
+        val ivAddAccessories = view.findViewById<ImageView>(R.id.iv_add_accessories)
+        val btnSaveOutfit = view.findViewById<Button>(R.id.btn_save_outfit)
+
+        btnAddExtra.setOnClickListener {
+            isSelectedExtra = !isSelectedExtra
+            Toast.makeText(this@TwoPieceFragment.requireContext(),"extra selected, $isSelectedExtra",Toast.LENGTH_LONG)
+        }
+
+        ivAddBag.setOnClickListener {
+            isSelectedBag = !isSelectedBag
+            Toast.makeText(this@TwoPieceFragment.requireContext(),"bag selected, $isSelectedBag",Toast.LENGTH_LONG)
+        }
+
+        ivAddAccessories.setOnClickListener {
+            isSelectedAcc = !isSelectedAcc
+            Toast.makeText(this@TwoPieceFragment.requireContext(),"accesories selected, $isSelectedAcc",Toast.LENGTH_LONG)
+        }
+
+        btnSaveOutfit.setOnClickListener {
+            outfit.images.add(itemTop.image)
+            outfit.items.add(itemTop)
+            outfit.images.add(itemBottom.image)
+            outfit.items.add(itemBottom)
+            outfit.images.add(itemShoes.image)
+            outfit.items.add(itemShoes)
+            if(isSelectedExtra||viewPager2Extra.isVisible){
+                Toast.makeText(this@TwoPieceFragment.requireContext(),"extra selected, $isSelectedExtra",Toast.LENGTH_LONG)
+                outfit.images.add(itemExtra.image)
+                outfit.items.add(itemExtra)
+            }
+            if(isSelectedBag||viewPager2Bags.isVisible){
+                outfit.images.add(itemBag.image)
+                outfit.items.add(itemBag)
+            }
+            if(isSelectedAcc||viewPager2Accessories.isVisible){
+                outfit.images.add(itemAccessory.image)
+                outfit.items.add(itemAccessory)
+            }
+            saveDialog()
+            Toast.makeText(this.requireContext(),"Save clicked",Toast.LENGTH_SHORT).show()
+        }
+
         viewPager2Tops.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                val it = itemArrayList[position].name
-                Toast.makeText(
-                    this@TwoPieceFragment.requireContext(),
-                    "Item $it, [$position]",
-                    Toast.LENGTH_SHORT
-                ).show()
+                itemTop = itemArrayList[position]
+//                Toast.makeText(
+//                    this@TwoPieceFragment.requireContext(),
+//                    "Item $it.name, [$position]",
+//                    Toast.LENGTH_SHORT
+//                ).show()
             }
         })
         viewPager2Bottoms.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-//                handlerBottoms.removeCallbacks(runnable)
-//                handlerBottoms.postDelayed(runnable, 2000)
+                itemBottom = itemArrayListBottoms[position]
             }
         })
         viewPager2Shoes.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-//                handlerShoes.removeCallbacks(runnable)
-//                handlerShoes.postDelayed(runnable, 2000)
+                itemShoes = itemArrayListShoes[position]
+            }
+        })
+        viewPager2Extra.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+//                if(viewPager2Extra.isVisible){
+//                    isSelectedExtra=true
+//                }
+                itemExtra = itemArrayList[position]
+                Toast.makeText(this@TwoPieceFragment.requireContext(),"extra selected, $isSelectedExtra",Toast.LENGTH_LONG)
+            }
+        })
+        viewPager2Bags.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                itemBag = itemArrayListBags[position]
+            }
+        })
+        viewPager2Accessories.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                itemAccessory = itemArrayListAccessories[position]
             }
         })
         return view
     }
 
-//    override fun onPause() {
-//        super.onPause()
-//
-//        handler.removeCallbacks(runnable)
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//
-//        handler.postDelayed(runnable , 2000)
-//    }
+    private fun saveDialog() {
+        val dialog = Dialog(this@TwoPieceFragment.requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.save_outfit_custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-    private val runnable = Runnable {
-        viewPager2Tops.currentItem = viewPager2Tops.currentItem + 1
+        val btnSave: Button = dialog.findViewById(R.id.btn_save_outfit_final)
+        val btnCancel: Button = dialog.findViewById(R.id.btn_cancel)
+        val llOutfitCategory: LinearLayout = dialog.findViewById(R.id.ll_outfit_category)
+        val tvOutfitCategory: TextView = dialog.findViewById(R.id.tv_outfit_category)
+        val llOutfitStyle: LinearLayout = dialog.findViewById(R.id.ll_outfit_style)
+        val tvOutfitStyle: TextView = dialog.findViewById(R.id.tv_outfit_style)
+        val etOutfitName: EditText = dialog.findViewById(R.id.et_outfit_name)
+
+        llOutfitCategory.setOnClickListener {
+            var builder: AlertDialog.Builder = AlertDialog.Builder(this@TwoPieceFragment.requireContext())
+            with(builder){
+                setTitle("Outfit Category")
+                setItems(Constants.outfit_category_options) { dialog, which ->
+                    Toast.makeText(
+                        this@TwoPieceFragment.requireContext(),
+                        Constants.outfit_category_options[which] + " is clicked",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    tvOutfitCategory.text = Constants.outfit_category_options[which]
+                }
+                show()
+            }
+        }
+
+        llOutfitStyle.setOnClickListener {
+            var builder: AlertDialog.Builder = AlertDialog.Builder(this@TwoPieceFragment.requireContext());
+            with(builder){
+                setTitle("Item Style")
+                setItems(Constants.style_options) { dialog, which ->
+                    Toast.makeText(
+                        this@TwoPieceFragment.requireContext(),
+                        Constants.style_options[which] + " is clicked",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    tvOutfitStyle.text =Constants.style_options[which]
+                }
+                show()
+            }
+        }
+
+        fun validate() : Boolean{
+            return when{
+                TextUtils.isEmpty(etOutfitName.text.toString().trim{ it <= ' '}) -> {
+                    Toast.makeText(this@TwoPieceFragment.requireContext(), resources.getString(R.string.err_msg_name_empty), Toast.LENGTH_LONG)
+                    false
+                }
+                TextUtils.isEmpty(tvOutfitCategory.text.toString().trim{ it <= ' '}) -> {
+                    Toast.makeText(this@TwoPieceFragment.requireContext(), resources.getString(R.string.err_msg_category_empty), Toast.LENGTH_LONG)
+                    false
+                }
+                TextUtils.isEmpty(tvOutfitStyle.text.toString().trim{ it <= ' '}) -> {
+                    Toast.makeText(this@TwoPieceFragment.requireContext(), resources.getString(R.string.err_msg_category_empty), Toast.LENGTH_LONG)
+                    false
+                }
+                else -> {
+                    true
+                }
+            }
+        }
+
+        btnSave.setOnClickListener {
+            Toast.makeText(this@TwoPieceFragment.requireContext(), "Saved", Toast.LENGTH_LONG).show()
+            if (validate()){
+                val outfitName = etOutfitName.text.toString().trim{ it <= ' '}
+                val category = tvOutfitCategory.text.toString()
+                val style = tvOutfitStyle.text.toString()
+
+                val outfitToBeAdded = Outfit(
+                    System.currentTimeMillis().toString(),
+                    outfitName,
+                    category,
+                    style,
+                    outfit.images,
+                    outfit.items
+                    )
+                FirestoreClass().addOutfitToDatabase(this, outfitToBeAdded)
+            }
+
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+
     }
+
+    override fun outfitAddedSuccessfully() {
+        Toast.makeText(
+            this@TwoPieceFragment.requireContext(),
+            resources.getString(R.string.item_added_successfully),
+            Toast.LENGTH_LONG
+        ).show()
+        startActivity(Intent(this@TwoPieceFragment.requireContext(), Outfits::class.java))
+        //onBackPressed()
+        //this.activity?.finish()
+    }
+
 
     private fun setUpTransformer(){
         val transformer = CompositePageTransformer()

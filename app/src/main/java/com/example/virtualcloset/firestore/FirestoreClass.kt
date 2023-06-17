@@ -4,12 +4,14 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.example.virtualcloset.models.Item
-import com.example.virtualcloset.ui.activities.SignInActivity
-import com.example.virtualcloset.ui.activities.SignUpActivity
+import com.example.virtualcloset.models.Outfit
 import com.example.virtualcloset.models.User
-import com.example.virtualcloset.ui.activities.AddItemActivity
-import com.example.virtualcloset.ui.activities.DisplayItemActivity
+import com.example.virtualcloset.ui.activities.*
+import com.example.virtualcloset.ui.fragments.BaseFragment
+import com.example.virtualcloset.ui.fragments.TwoPieceFragment
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
@@ -55,6 +57,26 @@ class FirestoreClass {
                 )
             }
 
+    }
+
+    fun addOutfitToDatabase (activity: BaseFragment, outfitInfo: Outfit) {
+
+        var curentUserID : String = getCurrentUserID()
+
+        val outfits: String = Constants.USERS+"/"+curentUserID+"/"+Constants.OUTFITS
+        mFirestore.collection(outfits)
+            .document(outfitInfo.id)
+            .set(outfitInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.outfitAddedSuccessfully()
+            }
+            .addOnFailureListener { e ->
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while adding outfit!",
+                    e
+                )
+            }
     }
 
     fun updateItemToDatabase(activity: Activity, itemID: String, itemHashMap: HashMap<String, Any>){

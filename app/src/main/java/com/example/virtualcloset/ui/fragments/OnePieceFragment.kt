@@ -1,12 +1,21 @@
 package com.example.virtualcloset.ui.fragments
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.*
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -14,7 +23,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.codingstuff.imageslider.ImageAdapter
 import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.FragmentOnePieceBinding
+import com.example.virtualcloset.firestore.FirestoreClass
 import com.example.virtualcloset.models.Item
+import com.example.virtualcloset.models.Outfit
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.firestore.*
 import kotlin.math.abs
@@ -29,7 +40,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [OnePieceFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class OnePieceFragment : Fragment() {
+class OnePieceFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -56,6 +67,12 @@ class OnePieceFragment : Fragment() {
     private lateinit var dbB : FirebaseFirestore
     private lateinit var dbA : FirebaseFirestore
     private lateinit var userUid: String
+    private lateinit var itemDress: Item
+    private lateinit var itemShoes: Item
+    private lateinit var itemBag: Item
+    private lateinit var itemAccessory: Item
+    private lateinit var itemExtra: Item
+    private lateinit var outfit: Outfit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +89,7 @@ class OnePieceFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_one_piece, container, false)
         binding = FragmentOnePieceBinding.inflate(layoutInflater)
+        outfit = Outfit()
 
         viewPager2Dress = view.findViewById(R.id.vp2_dress)
         viewPager2Shoes = view.findViewById(R.id.vp2_shoes)
@@ -132,19 +150,60 @@ class OnePieceFragment : Fragment() {
         EventChangeListenerBags()
         EventChangeListenerAccessories()
 
+        val btnSaveOutfit = view.findViewById<Button>(R.id.btn_save_outfit)
+
+        btnSaveOutfit.setOnClickListener {
+            outfit.images.add(itemDress.image)
+            outfit.items.add(itemDress)
+            outfit.images.add(itemShoes.image)
+            outfit.items.add(itemShoes)
+            if(viewPager2Extra.isVisible){
+                Toast.makeText(this@OnePieceFragment.requireContext(),"extra selected",
+                    Toast.LENGTH_LONG)
+                outfit.images.add(itemExtra.image)
+                outfit.items.add(itemExtra)
+            }
+            if(viewPager2Bags.isVisible){
+                outfit.images.add(itemBag.image)
+                outfit.items.add(itemBag)
+            }
+            if(viewPager2Accessories.isVisible){
+                outfit.images.add(itemAccessory.image)
+                outfit.items.add(itemAccessory)
+            }
+            saveDialog()
+        }
+
         viewPager2Dress.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-//                handlerShoes.removeCallbacks(runnable)
-//                handlerShoes.postDelayed(runnable, 2000)
+                itemDress = itemArrayListDresses[position]
             }
         })
 
         viewPager2Shoes.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-//                handlerShoes.removeCallbacks(runnable)
-//                handlerShoes.postDelayed(runnable, 2000)
+                itemShoes = itemArrayListShoes[position]
+            }
+        })
+
+        viewPager2Extra.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                itemExtra = itemArrayListTops[position]
+            }
+        })
+        viewPager2Bags.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                itemBag = itemArrayListBags[position]
+            }
+        })
+        viewPager2Accessories.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                itemAccessory = itemArrayListAccessories[position]
             }
         })
 
@@ -162,6 +221,111 @@ class OnePieceFragment : Fragment() {
         viewPager2Dress.setPageTransformer(transformer)
         viewPager2Shoes.setPageTransformer(transformer)
         viewPager2Extra.setPageTransformer(transformer)
+    }
+
+    private fun saveDialog() {
+        val dialog = Dialog(this@OnePieceFragment.requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.save_outfit_custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val btnSave: Button = dialog.findViewById(R.id.btn_save_outfit_final)
+        val btnCancel: Button = dialog.findViewById(R.id.btn_cancel)
+        val llOutfitCategory: LinearLayout = dialog.findViewById(R.id.ll_outfit_category)
+        val tvOutfitCategory: TextView = dialog.findViewById(R.id.tv_outfit_category)
+        val llOutfitStyle: LinearLayout = dialog.findViewById(R.id.ll_outfit_style)
+        val tvOutfitStyle: TextView = dialog.findViewById(R.id.tv_outfit_style)
+        val etOutfitName: EditText = dialog.findViewById(R.id.et_outfit_name)
+
+        llOutfitCategory.setOnClickListener {
+            var builder: AlertDialog.Builder = AlertDialog.Builder(this@OnePieceFragment.requireContext())
+            with(builder){
+                setTitle("Outfit Category")
+                setItems(Constants.outfit_category_options) { dialog, which ->
+                    Toast.makeText(
+                        this@OnePieceFragment.requireContext(),
+                        Constants.outfit_category_options[which] + " is clicked",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    tvOutfitCategory.text = Constants.outfit_category_options[which]
+                }
+                show()
+            }
+        }
+
+        llOutfitStyle.setOnClickListener {
+            var builder: AlertDialog.Builder = AlertDialog.Builder(this@OnePieceFragment.requireContext());
+            with(builder){
+                setTitle("Item Style")
+                setItems(Constants.style_options) { dialog, which ->
+                    Toast.makeText(
+                        this@OnePieceFragment.requireContext(),
+                        Constants.style_options[which] + " is clicked",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    tvOutfitStyle.text = Constants.style_options[which]
+                }
+                show()
+            }
+        }
+
+        fun validate() : Boolean{
+            return when{
+                TextUtils.isEmpty(etOutfitName.text.toString().trim{ it <= ' '}) -> {
+                    Toast.makeText(this@OnePieceFragment.requireContext(), resources.getString(R.string.err_msg_name_empty), Toast.LENGTH_LONG)
+                    false
+                }
+                TextUtils.isEmpty(tvOutfitCategory.text.toString().trim{ it <= ' '}) -> {
+                    Toast.makeText(this@OnePieceFragment.requireContext(), resources.getString(R.string.err_msg_category_empty), Toast.LENGTH_LONG)
+                    false
+                }
+                TextUtils.isEmpty(tvOutfitStyle.text.toString().trim{ it <= ' '}) -> {
+                    Toast.makeText(this@OnePieceFragment.requireContext(), resources.getString(R.string.err_msg_category_empty), Toast.LENGTH_LONG)
+                    false
+                }
+                else -> {
+                    true
+                }
+            }
+        }
+
+        btnSave.setOnClickListener {
+            Toast.makeText(this@OnePieceFragment.requireContext(), "Saved", Toast.LENGTH_LONG).show()
+            if (validate()){
+                val outfitName = etOutfitName.text.toString().trim{ it <= ' '}
+                val category = tvOutfitCategory.text.toString()
+                val style = tvOutfitStyle.text.toString()
+
+                val outfitToBeAdded = Outfit(
+                    System.currentTimeMillis().toString(),
+                    outfitName,
+                    category,
+                    style,
+                    outfit.images,
+                    outfit.items
+                )
+                FirestoreClass().addOutfitToDatabase(this, outfitToBeAdded)
+            }
+
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+
+    }
+
+    override fun outfitAddedSuccessfully() {
+        Toast.makeText(
+            this@OnePieceFragment.requireContext(),
+            resources.getString(R.string.item_added_successfully),
+            Toast.LENGTH_LONG
+        ).show()
+        startActivity(Intent(this@OnePieceFragment.requireContext(), Outfits::class.java))
+        //onBackPressed()
+        //this.activity?.finish()
     }
 
     private fun EventChangeListenerDress() {

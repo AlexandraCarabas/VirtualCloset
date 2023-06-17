@@ -8,6 +8,7 @@ object Constants {
     const val EXTRA_USER_DETAILS: String = "extra_user_details"
 
     const val ITEMS: String = "items"
+    const val OUTFITS: String = "outfits"
     const val CATEGORY: String ="category"
     const val ITEM_NAME: String = "name"
     const val ITEM_COLOR: String = "color"
@@ -30,6 +31,14 @@ object Constants {
         "Accessories",
         "Bags",
         "Shoes")
+
+    val outfit_category_options = arrayOf<String>(
+        "AllSeasons",
+        "Spring",
+        "Summer",
+        "Fall",
+        "Winter"
+    )
 
     val style_options = arrayOf<String>(
         "Elegant",

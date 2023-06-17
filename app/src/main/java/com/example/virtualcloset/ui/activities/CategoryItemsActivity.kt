@@ -15,7 +15,7 @@ import com.example.virtualcloset.ui.RecyclerViewAdapter
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.firestore.*
 
-class CategoryItemsActivity : AppCompatActivity() {
+class CategoryItemsActivity : BaseActivity() {
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var itemArrayList: ArrayList<Item>
