@@ -8,6 +8,7 @@ import com.example.virtualcloset.ui.fragments.Closet
 import com.example.virtualcloset.ui.fragments.Home
 import com.example.virtualcloset.R
 import com.example.virtualcloset.models.User
+import com.example.virtualcloset.ui.fragments.Outfits
 import com.example.virtualcloset.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
@@ -16,7 +17,7 @@ class NavigationActivity : BaseActivity() {
 
     private val homeFragment = Home()
     private val closetFragment = Closet()
-    private val outfitFragment = Home()
+    private val outfitFragment = Outfits()
 
     private lateinit var currentFragment : Fragment
 
