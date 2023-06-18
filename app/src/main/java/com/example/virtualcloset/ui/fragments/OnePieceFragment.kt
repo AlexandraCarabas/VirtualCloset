@@ -26,6 +26,7 @@ import com.example.virtualcloset.databinding.FragmentOnePieceBinding
 import com.example.virtualcloset.firestore.FirestoreClass
 import com.example.virtualcloset.models.Item
 import com.example.virtualcloset.models.Outfit
+import com.example.virtualcloset.ui.activities.NavigationActivity
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.firestore.*
 import kotlin.math.abs
@@ -323,7 +324,7 @@ class OnePieceFragment : BaseFragment() {
             resources.getString(R.string.item_added_successfully),
             Toast.LENGTH_LONG
         ).show()
-        startActivity(Intent(this@OnePieceFragment.requireContext(), Outfits::class.java))
+        startActivity(Intent(this@OnePieceFragment.requireContext(), NavigationActivity::class.java))
         //onBackPressed()
         //this.activity?.finish()
     }

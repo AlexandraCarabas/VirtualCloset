@@ -12,5 +12,5 @@ class Item(
     val category: String = "",
     val size: String = "",
     val style: String = "",
-    val image: String = ""
+    var image: String = ""
 ):Parcelable

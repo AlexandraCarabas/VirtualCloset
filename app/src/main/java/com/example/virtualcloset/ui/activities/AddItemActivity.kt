@@ -1,11 +1,14 @@
 package com.example.virtualcloset.ui.activities
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.media.MediaScannerConnection
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -17,6 +20,10 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import com.example.virtualcloset.BuildConfig
 import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.ActivityAddItemBinding
 import com.example.virtualcloset.firestore.FirestoreClass
@@ -30,14 +37,22 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.ExecutorService
+import kotlin.jvm.Throws
 
+typealias LumaListener = (luma: Double) -> Unit
 
 class AddItemActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAddItemBinding
+    private lateinit var cameraExecutor: ExecutorService
+
     lateinit var selectedColor: ColorObject
     internal var imagePath:String? = ""
     private var mSelectedImageFileUri: Uri? = null
+    private var storageImagePath:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +73,6 @@ class AddItemActivity : BaseActivity() {
                     arrayOf(android.Manifest.permission.CAMERA),
                     Constants.CAMERA_PERMISSIONS_CODE
                 )
-
             }
             if(ContextCompat.checkSelfPermission(
                     this,
@@ -109,10 +123,85 @@ class AddItemActivity : BaseActivity() {
         }
     }
 
+//    companion object {
+//        private const val TAG = "CameraXApp"
+//        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+//        private val REQUIRED_PERMISSIONS =
+//            mutableListOf (
+//                Manifest.permission.CAMERA,
+//            ).apply {
+//                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+//                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                }
+//            }.toTypedArray()
+//    }
+
+
+//    @Throws(IOException::class)
+//    private fun createImageFile(): File{
+//        // Create an image file name
+//        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+//        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+//        return File.createTempFile(
+//            "JPEG_${timeStamp}_", /* prefix */
+//            ".jpg", /* suffix */
+//            storageDir /* directory */
+//        ).apply {
+//            // Save a file: path for use with ACTION_VIEW intents
+//            currentPhotoPath = absolutePath
+//        }
+//    }
+
     fun takePhoto() {
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        resultLauncher.launch(cameraIntent)
+        //val cameraIntent =
+//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+//            takePictureIntent.resolveActivity(packageManager)?.also {
+//                val photoFile: File? = try {
+//                    createImageFile()
+//                } catch (ex: IOException) {
+//                    showErrorSnackBar("Error occurred while creating the Tile", true)
+//                    null
+//                }
+//                photoFile?.also {
+//                    val photoURI: Uri = FileProvider.getUriForFile(
+//                        this,
+//                        "com.example.virtualcloset",
+//                        it
+//                    )
+//                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+//                    resultLauncher.launch(takePictureIntent)
+//                }
+//            }
+//
+//        }
+        lifecycleScope.launchWhenStarted {
+            getTempFileUri().let { uri->
+                latestTmpUri = uri
+                resultLauncher.launch(uri)
+            }
+        }
+        //resultLauncher.launch(cameraIntent)
     }
+
+    private fun getTempFileUri(): Uri{
+        val tmpFile = File.createTempFile("tmp_image_file", ".png", cacheDir).apply {
+            createNewFile()
+            deleteOnExit()
+        }
+
+        return FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.provider", tmpFile)
+    }
+
+//    private fun galleryAddPic() {
+////        Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
+////            val f = File(currentPhotoPath)
+////            mediaScanIntent.data = Uri.fromFile(f)
+////            sendBroadcast(mediaScanIntent)
+////        }
+//
+//        val file = File(currentPhotoPath)
+//        MediaScannerConnection.scanFile(this, arrayOf(file.toString()),null,null)
+//    }
 
     private fun loadColorSpinner() {
         selectedColor = ColorList().defaultColor
@@ -137,9 +226,11 @@ class AddItemActivity : BaseActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == Constants.CAMERA_PERMISSIONS_CODE) {
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                val intent = Intent( MediaStore.ACTION_IMAGE_CAPTURE)
-                //startActivityForResult(intent,Constants.CAMERA_REQUEST_CODE)
-                resultLauncher.launch(intent)
+//                val intent = Intent( MediaStore.ACTION_IMAGE_CAPTURE)
+//                //startActivityForResult(intent,Constants.CAMERA_REQUEST_CODE)
+//                resultLauncher.launch(intent)
+                takePhoto()
+                //startCamera()
             }else{
                 Toast.makeText(
                     this,
@@ -223,45 +314,31 @@ class AddItemActivity : BaseActivity() {
         }
     }
 
-    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if(result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            val thumbNail: Bitmap = result.data!!.extras!!.get("data") as Bitmap
-            saveImage(thumbNail)
-            Toast.makeText(
-                this,
-                "saved: "+imagePath,
-                Toast.LENGTH_LONG
-            ).show()
-            binding.ivItemPhoto.setImageBitmap(thumbNail)
-        }
-    }
+//    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//        if(result.resultCode == Activity.RESULT_OK) {
+//            val data: Intent? = result.data
+//            val thumbNail: Bitmap = result.data!!.extras!!.get("data") as Bitmap
+//            val phUri: Uri = result.data!!.extras!!.get("photoURI") as Uri
+//            saveImage(thumbNail)
+//            galleryAddPic()
+//            Toast.makeText(
+//                this,
+//                "saved: "+imagePath,
+//                Toast.LENGTH_LONG
+//            ).show()
+//            binding.ivItemPhoto.setImageBitmap(thumbNail)
+//        }
+//    }
 
-    private fun saveImage(bitmap: Bitmap){
-        val root = Environment.getExternalStorageDirectory().toString()
-        val myDir = File(root+"/capture_photo")
-        Toast.makeText(
-            this,
-            root,
-            Toast.LENGTH_LONG
-        ).show()
-        myDir.mkdirs()
-        val generator = java.util.Random()
-        var n = 10000
-        n = generator.nextInt(n)
-        val OutletFname = "Image-$n.jpg"
-        val file = File(myDir, OutletFname)
-        if(file.exists()) file.delete()
-        try {
-            val out = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.JPEG,90,out)
-            imagePath = file.absolutePath
-            out.flush()
-            out.close()
-        }catch (e: Exception) {
-            e.printStackTrace()
-        }
+    private var latestTmpUri: Uri? = null
 
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+        if (isSuccess) {
+            latestTmpUri?.let { uri ->
+                binding.ivItemPhoto.setImageURI(uri)
+                mSelectedImageFileUri = uri
+            }
+        }
     }
 
     fun showImageChooser(activity: Activity){
@@ -314,10 +391,14 @@ class AddItemActivity : BaseActivity() {
                     itemSize,
                     itemStyle
                 )
-
-                FirestoreClass().addItemToDatabase(this@AddItemActivity,item)
+                FirestoreClass().addItemToDatabase(this@AddItemActivity,item,mSelectedImageFileUri!!)
             }
             else{
+                val i = mSelectedImageFileUri.toString()
+                showErrorSnackBar("**** path $i ",true)
+                Toast.makeText(this,"*****Path $i *********",Toast.LENGTH_LONG)
+                //storageImagePath = FirestoreClass().addItemImageToStorage(this, mSelectedImageFileUri!!)
+                //Toast.makeText(this,"Path $storageImagePath",Toast.LENGTH_LONG)
                 val item = Item(
                     System.currentTimeMillis().toString(),
                     itemName,
@@ -329,7 +410,7 @@ class AddItemActivity : BaseActivity() {
                     mSelectedImageFileUri.toString()
                 )
 
-                FirestoreClass().addItemToDatabase(this@AddItemActivity,item)
+                FirestoreClass().addItemToDatabase(this@AddItemActivity,item,mSelectedImageFileUri!!)
             }
         }
     }

@@ -357,7 +357,7 @@ class TwoPieceFragment : BaseFragment() {
             resources.getString(R.string.item_added_successfully),
             Toast.LENGTH_LONG
         ).show()
-        startActivity(Intent(this@TwoPieceFragment.requireContext(), Outfits::class.java))
+        startActivity(Intent(this@TwoPieceFragment.requireContext(), NavigationActivity::class.java))
         //onBackPressed()
         //this.activity?.finish()
     }

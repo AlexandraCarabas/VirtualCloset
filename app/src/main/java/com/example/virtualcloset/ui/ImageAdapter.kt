@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.virtualcloset.R
 import com.example.virtualcloset.models.Item
+import com.squareup.picasso.Picasso
 
 class ImageAdapter(private val itemList: ArrayList<Item>, private val viewPager2: ViewPager2) :
     RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
@@ -25,7 +26,10 @@ class ImageAdapter(private val itemList: ArrayList<Item>, private val viewPager2
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val item: Item = itemList[position]
-        holder.imageView.setImageURI(item.image.toUri())
+        if(item.image.isNotEmpty())
+            Picasso.get().load(item.image).into(holder.imageView)
+        else
+            holder.imageView.setImageURI(item.image.toUri())
 //        if (position == itemList.size-1){
 //            viewPager2.post(runnable)
 //        }

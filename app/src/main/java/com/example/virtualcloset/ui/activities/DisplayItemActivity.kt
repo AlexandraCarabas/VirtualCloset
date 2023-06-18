@@ -15,7 +15,10 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
+import com.example.virtualcloset.BuildConfig
 import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.ActivityDisplayItemBinding
 import com.example.virtualcloset.firestore.FirestoreClass
@@ -25,6 +28,8 @@ import com.example.virtualcloset.utils.ColorList
 import com.example.virtualcloset.utils.ColorObject
 import com.example.virtualcloset.utils.Constants
 import com.example.virtualcloset.utils.GlideLoader
+import com.squareup.picasso.Picasso
+import java.io.File
 import java.io.IOException
 
 
@@ -59,12 +64,14 @@ class DisplayItemActivity : BaseActivity() {
         binding.tvItemStyle.isEnabled = false
         binding.btnSaveItem.visibility = View.INVISIBLE
 
-        binding.ivItemPhoto.setImageURI(myItem?.image?.toUri())
-        binding.etItemName.setText(myItem?.name)
-        binding.etItemPattern.setText(myItem?.pattern)
-        binding.etItemSize.setText(myItem?.size)
-        binding.tvItemStyle.setText(myItem?.style)
-        binding.tvItemCategory.setText(myItem?.category)
+        if(myItem.image.isNotEmpty())
+            Picasso.get().load(myItem.image).into(binding.ivItemPhoto)
+        //binding.ivItemPhoto.setImageURI(myItem.image.toUri())
+        binding.etItemName.setText(myItem.name)
+        binding.etItemPattern.setText(myItem.pattern)
+        binding.etItemSize.setText(myItem.size)
+        binding.tvItemStyle.setText(myItem.style)
+        binding.tvItemCategory.setText(myItem.category)
 
 
         binding.swEditable.setOnCheckedChangeListener{ _ , isChecked ->
@@ -162,7 +169,7 @@ class DisplayItemActivity : BaseActivity() {
                 itemHashMap[Constants.ITEM_STYLE] = binding.tvItemStyle.text.toString()
                 itemHashMap[Constants.ITEM_IMAGE] = mSelectedImageFileUri.toString()
 
-                FirestoreClass().updateItemToDatabase(this,itemID, itemHashMap)
+                FirestoreClass().updateItemToDatabase(this,itemID, itemHashMap,mSelectedImageFileUri!!)
             }
         }
 
@@ -175,15 +182,33 @@ class DisplayItemActivity : BaseActivity() {
         binding.swEditable.isChecked = false
     }
 
+    private var latestTmpUri: Uri? = null
+
     fun takePhoto() {
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        resultLauncher.launch(cameraIntent)
+//        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        resultLauncher.launch(cameraIntent)
+        lifecycleScope.launchWhenStarted {
+            getTempFileUri().let { uri->
+                latestTmpUri = uri
+                resultLauncher.launch(uri)
+            }
+        }
     }
-    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if(result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            val thumbNail: Bitmap = result.data!!.extras!!.get("data") as Bitmap
-            binding.ivItemPhoto.setImageBitmap(thumbNail)
+
+    private fun getTempFileUri(): Uri{
+        val tmpFile = File.createTempFile("tmp_image_file", ".png", cacheDir).apply {
+            createNewFile()
+            deleteOnExit()
+        }
+
+        return FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.provider", tmpFile)
+    }
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+        if (isSuccess) {
+            latestTmpUri?.let { uri ->
+                binding.ivItemPhoto.setImageURI(uri)
+                mSelectedImageFileUri = uri
+            }
         }
     }
 
@@ -216,9 +241,7 @@ class DisplayItemActivity : BaseActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == Constants.CAMERA_PERMISSIONS_CODE) {
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                val intent = Intent( MediaStore.ACTION_IMAGE_CAPTURE)
-                //startActivityForResult(intent,Constants.CAMERA_REQUEST_CODE)
-                resultLauncher.launch(intent)
+                takePhoto()
             }else{
                 Toast.makeText(
                     this,

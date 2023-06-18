@@ -9,6 +9,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.virtualcloset.R
 import com.example.virtualcloset.models.Item
+import com.squareup.picasso.Picasso
 
 class RecyclerViewAdapter(private val itemList: ArrayList<Item>): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
@@ -49,7 +50,9 @@ class RecyclerViewAdapter(private val itemList: ArrayList<Item>): RecyclerView.A
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
        val item: Item = itemList[position]
         holder.itemName.text = item.name
-        holder.itemImage.setImageURI(item.image.toUri())
+        //holder.itemImage.setImageURI(item.image.toUri())
+        if(item.image.isNotEmpty())
+            Picasso.get().load(item.image).into(holder.itemImage)
     }
 
     override fun getItemCount(): Int {
