@@ -15,7 +15,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -311,11 +313,16 @@ class OnePieceFragment : BaseFragment() {
 
         }
 
+
         btnCancel.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
 
+    }
+
+    @Override
+    public fun onBackPressed() {
     }
 
     override fun outfitAddedSuccessfully() {
@@ -324,9 +331,12 @@ class OnePieceFragment : BaseFragment() {
             resources.getString(R.string.item_added_successfully),
             Toast.LENGTH_LONG
         ).show()
-        startActivity(Intent(this@OnePieceFragment.requireContext(), NavigationActivity::class.java))
+        startActivity(Intent(this@OnePieceFragment.requireContext(), Outfits()::class.java))
         //onBackPressed()
         //this.activity?.finish()
+//        val navController = findNavController()
+//        navController.navigateUp() // to clear previous navigation history
+//        navController.navigate(R.id.cl_outfits_container)
     }
 
     private fun EventChangeListenerDress() {

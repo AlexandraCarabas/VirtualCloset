@@ -118,26 +118,6 @@ class FirestoreClass {
         return path
     }
 
-    fun addOutfitToDatabase (activity: BaseFragment, outfitInfo: Outfit) {
-
-        var curentUserID : String = getCurrentUserID()
-
-        val outfits: String = Constants.USERS+"/"+curentUserID+"/"+Constants.OUTFITS
-        mFirestore.collection(outfits)
-            .document(outfitInfo.id)
-            .set(outfitInfo, SetOptions.merge())
-            .addOnSuccessListener {
-                activity.outfitAddedSuccessfully()
-            }
-            .addOnFailureListener { e ->
-                Log.e(
-                    activity.javaClass.simpleName,
-                    "Error while adding outfit!",
-                    e
-                )
-            }
-    }
-
     fun updateItemToDatabase(activity: Activity, itemID: String, itemHashMap: HashMap<String, Any>, imageUri: Uri){
         var curentUserID : String = getCurrentUserID()
 
@@ -208,7 +188,96 @@ class FirestoreClass {
                     )
                 }
         }
+    }
 
+    fun deleteItemFromDatabase (activity: Activity, itemID: String){
+        var curentUserID : String = getCurrentUserID()
+
+        val items: String = Constants.USERS+"/"+curentUserID+"/"+Constants.ITEMS
+        mFirestore.collection(items)
+            .document(itemID)
+            .delete().addOnSuccessListener {
+                when(activity) {
+                    is DisplayItemActivity -> {
+                        activity.itemDeletedSuccessfully()
+                    }
+                }
+            }
+            .addOnFailureListener { e->
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error deleting item!",
+                    e
+                )
+            }
+
+    }
+
+    fun addOutfitToDatabase (activity: BaseFragment, outfitInfo: Outfit) {
+
+        var curentUserID : String = getCurrentUserID()
+
+        val outfits: String = Constants.USERS+"/"+curentUserID+"/"+Constants.OUTFITS
+        mFirestore.collection(outfits)
+            .document(outfitInfo.id)
+            .set(outfitInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.outfitAddedSuccessfully()
+            }
+            .addOnFailureListener { e ->
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while adding outfit!",
+                    e
+                )
+            }
+    }
+
+    fun updateOutfitToDatabase (activity: Activity, outfitID: String, outfitHashMap: HashMap<String, Any>) {
+        var curentUserID : String = getCurrentUserID()
+
+        val outfits: String = Constants.USERS+"/"+curentUserID+"/"+Constants.OUTFITS
+
+        mFirestore.collection(outfits)
+            .document(outfitID)
+            .update(outfitHashMap)
+            .addOnSuccessListener {
+                when(activity) {
+                    is OutfitDetailsActivity -> {
+                        activity.outfitUpdatedSuccessfully()
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error updating outfit info",
+                    e
+                )
+            }
+
+    }
+    fun deleteOutfitFromDatabase (activity: Activity, outfitID: String){
+        var curentUserID : String = getCurrentUserID()
+
+        val outfits: String = Constants.USERS+"/"+curentUserID+"/"+Constants.OUTFITS
+        mFirestore.collection(outfits)
+            .document(outfitID)
+            .delete().addOnSuccessListener {
+                when(activity) {
+                    is OutfitDetailsActivity -> {
+                        activity.outfitDeletedSuccessfully()
+                    }
+                }
+            }
+            .addOnFailureListener { e->
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error deleting outfit!",
+                    e
+                )
+                Toast.makeText(activity,"Error deleting outfit!",Toast.LENGTH_LONG).show()
+            }
 
     }
 

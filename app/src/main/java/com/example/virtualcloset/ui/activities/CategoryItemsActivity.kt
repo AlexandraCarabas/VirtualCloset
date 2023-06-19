@@ -55,6 +55,7 @@ class CategoryItemsActivity : BaseActivity() {
 
         })
 
+
         EventChangeListener()
 
         binding.ivAddItem.setOnClickListener{
@@ -63,6 +64,20 @@ class CategoryItemsActivity : BaseActivity() {
         binding.ivArrowBack.setOnClickListener {
             onBackPressed()
         }
+
+        refreshActivity()
+    }
+
+    private fun refreshActivity() {
+        binding.swipeToRefresh.setOnRefreshListener {
+            myAdapter.notifyDataSetChanged()
+            binding.swipeToRefresh.isRefreshing = false
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        myAdapter.notifyDataSetChanged()
     }
 
     private fun EventChangeListener() {

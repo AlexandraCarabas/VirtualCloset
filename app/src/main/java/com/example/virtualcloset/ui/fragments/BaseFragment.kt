@@ -61,4 +61,5 @@ open class BaseFragment : Fragment() {
     open fun outfitAddedSuccessfully(){
 
     }
+
 }

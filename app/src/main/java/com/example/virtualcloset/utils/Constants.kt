@@ -17,6 +17,12 @@ object Constants {
     const val ITEM_SIZE: String = "size"
     const val ITEM_STYLE: String = "style"
     const val ITEM_IMAGE: String = "image"
+    const val OUTFIT_NAME : String = "name"
+    const val OUTFIT_CATEGORY :String = "name"
+    const val OUTFIT_ID: String = "id"
+    const val OUTFIT_STYLE: String = "style"
+    const val OUTFIT_IMAGES: String = "images"
+    const val OUTFIT_ITEMS: String = "items"
 
     const val CAMERA_PERMISSIONS_CODE = 1
     const val CAMERA_REQUEST_CODE = 2

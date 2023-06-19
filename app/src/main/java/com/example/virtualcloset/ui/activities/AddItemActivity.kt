@@ -53,6 +53,7 @@ class AddItemActivity : BaseActivity() {
     internal var imagePath:String? = ""
     private var mSelectedImageFileUri: Uri? = null
     private var storageImagePath:String = ""
+    private var itemCategory: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -380,6 +381,13 @@ class AddItemActivity : BaseActivity() {
             val category = binding.tvItemCategory.text.toString()
             val itemSize = binding.etItemSize.text.toString()
             val itemStyle = binding.tvItemStyle.text.toString()
+            var position : Int = 0
+            for(pos: String in Constants.category_options ){
+                if(category == pos) {
+                    itemCategory = position
+                }
+                position += 1
+            }
 
             if(mSelectedImageFileUri==null){
                 val item = Item(
@@ -421,9 +429,11 @@ class AddItemActivity : BaseActivity() {
             resources.getString(R.string.item_added_successfully),
             Toast.LENGTH_LONG
         ).show()
-        startActivity(Intent(this@AddItemActivity,NavigationActivity::class.java))
+        val intent = Intent(this@AddItemActivity,CategoryItemsActivity::class.java)
+        intent.putExtra(Constants.CATEGORY, itemCategory)
+        startActivity(intent)
         //onBackPressed()
-        finish()
+        //finish()
     }
 
     override fun onBackPressed() {

@@ -54,4 +54,8 @@ class CreateOutfitActivity : BaseActivity() {
             }
         })
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }

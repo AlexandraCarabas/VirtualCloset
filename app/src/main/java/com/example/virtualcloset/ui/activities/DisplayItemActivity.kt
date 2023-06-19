@@ -2,15 +2,20 @@ package com.example.virtualcloset.ui.activities
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.View
+import android.view.Window
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -40,6 +45,7 @@ class DisplayItemActivity : BaseActivity() {
     lateinit var selectedColor: ColorObject
     private var mSelectedImageFileUri: Uri? = null
     var dColor: String = ""
+    var itemCategory: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +54,13 @@ class DisplayItemActivity : BaseActivity() {
         //setContentView(R.layout.activity_display_item)
 
         val myItem = intent.getParcelableExtra<Item>("item")
+        var position : Int = 0
+        for(pos: String in Constants.category_options ){
+            if(myItem?.category == pos) {
+                itemCategory = position
+            }
+            position = position + 1
+        }
 
         binding.tvTitle.text = myItem?.name
         dColor = myItem?.color!!
@@ -173,13 +186,49 @@ class DisplayItemActivity : BaseActivity() {
             }
         }
 
-
+        binding.ivDeleteItem.setOnClickListener {
+            val itemID = myItem.id
+            delete_item(itemID)
+        }
 
     }
 
     fun itemUpdatedSuccessfully(){
         showErrorSnackBar("Item updated successfully!",false)
         binding.swEditable.isChecked = false
+    }
+
+    private fun delete_item(itemID: String) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.delete_custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val btnYes : Button = dialog.findViewById(R.id.btn_yes)
+        val btnNo : Button = dialog.findViewById(R.id.btn_no)
+
+        btnYes.setOnClickListener {
+            Toast.makeText(this,"Yes",Toast.LENGTH_SHORT).show()
+            FirestoreClass().deleteItemFromDatabase(this, itemID)
+        }
+
+        btnNo.setOnClickListener {
+            Toast.makeText(this,"No",Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    fun itemDeletedSuccessfully(){
+        showErrorSnackBar("Outfit deleted successfully!",false)
+        val intent = Intent(this, CategoryItemsActivity::class.java)
+        intent.putExtra(Constants.CATEGORY, itemCategory)
+        startActivity(intent)
+        //supportFragmentManager.beginTransaction().replace(,Outfits()).commit()
+        ///onBackPressed()
+        //supportFragmentManager.beginTransaction().replace(R.id.cl_outfits_container, Outfits()).commit()
     }
 
     private var latestTmpUri: Uri? = null

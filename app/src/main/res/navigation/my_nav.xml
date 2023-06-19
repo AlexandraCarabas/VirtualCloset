@@ -15,4 +15,10 @@
         android:name="com.example.virtualcloset.ui.fragments.Closet"
         android:label="fragment_closet"
         tools:layout="@layout/fragment_closet" />
+    <fragment
+        android:id="@+id/outfits"
+        android:name="com.example.virtualcloset.ui.fragments.Outfits"
+        android:label="fragment_outfits"
+        tools:layout="@layout/fragment_outfits"
+        />
 </navigation>

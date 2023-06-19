@@ -36,17 +36,25 @@
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/drawable/tab_indicator.xml" value="0.1985" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/activity_add_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/activity_base.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/activity_category_items.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/activity_create_outfit.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/activity_display_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/activity_navigation.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/activity_outfit_details.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/activity_outfits.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/delete_custom_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/fragment_base.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/fragment_closet.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/fragment_one_piece.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/fragment_outfits.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/fragment_three_piece.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/fragment_two_piece.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/fragment_two_piece_fragnment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/image_container.xml" value="0.18697916666666667" />
+        <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/recyclerview_model.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/recyclerview_outfits.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/layout/save_outfit_custom_dialog.xml" value="0.30085470085470084" />
         <entry key="..\:/Users/Anda C/AndroidStudioProjects/VirtualCloset/app/src/main/res/xml/file_paths.xml" value="0.18802083333333333" />
       </map>

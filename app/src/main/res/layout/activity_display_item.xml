@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="match_parent"
+            android:layout_width="270dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingStart="@dimen/toolbar_title_paddingStart"
@@ -31,6 +31,13 @@
             android:textColor="@color/black"
             android:textSize="@dimen/toolbar_title_text_size"
             android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/iv_delete_item"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_delete_64"
+            android:layout_marginEnd="50dp"/>
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
