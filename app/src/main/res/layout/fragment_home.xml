@@ -37,20 +37,20 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
-        android:src="@drawable/ic_baseline_person_24_w"
+        android:src="@drawable/profile_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageView
         android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Log out"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/logout_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.738"
+        app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toEndOf="@+id/name_textView"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -6,15 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.SignInActivity">
 
-    <view
+
+    <ImageView
         android:id="@+id/topView"
         class="androidx.viewpager.widget.ViewPager"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:background="@color/material_dynamic_primary50"
+        android:src="@drawable/login_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/inputEmail"

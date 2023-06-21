@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
@@ -97,7 +98,7 @@ class Outfits : Fragment() {
 
         EventChangeListener()
 
-        val btnCreateOutfit = view.findViewById<Button>(R.id.btn_create_outfit)
+        val btnCreateOutfit = view.findViewById<ImageView>(R.id.btn_create_outfit)
         btnCreateOutfit.setOnClickListener {
             activity?.startActivity(Intent(this.activity,CreateOutfitActivity::class.java))
         }

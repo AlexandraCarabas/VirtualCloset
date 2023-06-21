@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_dynamic_neutral80"
+    android:background="@color/material_dynamic_primary95"
     tools:context="ui.fragments.Closet">
 
     <View
@@ -49,7 +49,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="7dp"
         android:layout_marginTop="40dp"
-        app:srcCompat="@drawable/tops_icon" />
+        app:srcCompat="@drawable/icon_tops" />
 
     <ImageView
         android:id="@+id/bottoms_icon"
@@ -59,7 +59,7 @@
         android:layout_marginStart="21dp"
         android:layout_marginTop="41dp"
         android:layout_toEndOf="@+id/tops_icon"
-        app:srcCompat="@drawable/bottoms_icon" />
+        app:srcCompat="@drawable/icon_bottoms" />
 
     <ImageView
         android:id="@+id/dresses_icon"
@@ -71,7 +71,7 @@
         android:layout_marginTop="41dp"
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/bottoms_icon"
-        app:srcCompat="@drawable/dress_icon" />
+        app:srcCompat="@drawable/icon_dress" />
 
     <ImageView
         android:id="@+id/accessories_icon"
@@ -81,7 +81,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="7dp"
         android:layout_marginTop="40dp"
-        app:srcCompat="@drawable/acessories_icon" />
+        app:srcCompat="@drawable/icon_accesories" />
 
     <ImageView
         android:id="@+id/bags_icon"
@@ -91,7 +91,7 @@
         android:layout_marginStart="21dp"
         android:layout_marginTop="41dp"
         android:layout_toEndOf="@+id/accessories_icon"
-        app:srcCompat="@drawable/bags_icon" />
+        app:srcCompat="@drawable/icon_bags" />
 
     <ImageView
         android:id="@+id/shoesIcon"
@@ -103,7 +103,7 @@
         android:layout_marginTop="41dp"
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/bags_icon"
-        app:srcCompat="@drawable/shoes_icon" />
+        app:srcCompat="@drawable/icon_shoes" />
 
     <ImageView
         android:id="@+id/ivAddItem"
@@ -113,6 +113,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="-4dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_baseline_add_circle_outline_24" />
+        android:src="@drawable/icon_add" />
 
 </RelativeLayout>

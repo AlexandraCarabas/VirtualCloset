@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,7 +71,7 @@ class Home : Fragment(), RecyclerViewAdapterNews.OnNewsClick{
         val mName : TextView = view.findViewById<TextView>(R.id.name_textView)
         mName.text = username
 
-        val logout_btn = view.findViewById<Button>(R.id.btn_logout)
+        val logout_btn = view.findViewById<ImageView>(R.id.btn_logout)
         logout_btn.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             activity?.startActivity(Intent(this.activity,SignInActivity::class.java))
