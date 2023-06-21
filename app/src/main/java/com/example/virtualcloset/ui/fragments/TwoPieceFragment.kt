@@ -29,6 +29,7 @@ import com.example.virtualcloset.firestore.FirestoreClass
 import com.example.virtualcloset.models.Item
 import com.example.virtualcloset.models.Outfit
 import com.example.virtualcloset.ui.activities.NavigationActivity
+import com.example.virtualcloset.ui.activities.OutfitDetailsActivity
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.firestore.*
 import org.checkerframework.common.subtyping.qual.Bottom
@@ -209,6 +210,13 @@ class TwoPieceFragment : BaseFragment() {
             Toast.makeText(this.requireContext(),"Save clicked",Toast.LENGTH_SHORT).show()
         }
 
+        val btnShuffle = view.findViewById<ImageView>(R.id.iv_shuffle)
+
+        btnShuffle.setOnClickListener {
+            shuffle()
+        }
+
+
         viewPager2Tops.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -255,6 +263,30 @@ class TwoPieceFragment : BaseFragment() {
             }
         })
         return view
+    }
+
+    private fun shuffle() {
+        val randomTop = (0..itemArrayList.size).random()
+        viewPager2Tops.currentItem = randomTop
+
+        val randomBottom = (0..itemArrayListBottoms.size).random()
+        viewPager2Bottoms.currentItem = randomBottom
+
+        val randomShoes = (0..itemArrayListShoes.size).random()
+        viewPager2Shoes.currentItem = randomShoes
+
+        if(viewPager2Extra.isVisible){
+            val randomExtra = (0..itemArrayList.size).random()
+            viewPager2Extra.currentItem = randomExtra
+        }
+        if(viewPager2Bags.isVisible){
+            val randomBag = (0..itemArrayListBags.size).random()
+            viewPager2Bags.currentItem = randomBag
+        }
+        if (viewPager2Accessories.isVisible){
+            val randomAcc = (0..itemArrayListAccessories.size).random()
+            viewPager2Accessories.currentItem = randomAcc
+        }
     }
 
     private fun saveDialog() {
@@ -339,6 +371,7 @@ class TwoPieceFragment : BaseFragment() {
                     outfit.images,
                     outfit.items
                     )
+                outfit = outfitToBeAdded
                 FirestoreClass().addOutfitToDatabase(this, outfitToBeAdded)
             }
 
@@ -357,7 +390,10 @@ class TwoPieceFragment : BaseFragment() {
             resources.getString(R.string.item_added_successfully),
             Toast.LENGTH_LONG
         ).show()
-        startActivity(Intent(this@TwoPieceFragment.requireContext(), NavigationActivity::class.java))
+        val intent = Intent(this@TwoPieceFragment.requireContext(), OutfitDetailsActivity::class.java)
+        intent.putExtra("outfit", outfit)
+        startActivity(intent)
+        //startActivity(Intent(this@TwoPieceFragment.requireContext(), NavigationActivity::class.java))
         //onBackPressed()
         //this.activity?.finish()
     }

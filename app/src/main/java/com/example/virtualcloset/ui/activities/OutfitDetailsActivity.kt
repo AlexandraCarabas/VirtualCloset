@@ -248,4 +248,10 @@ class OutfitDetailsActivity : BaseActivity() {
         //supportFragmentManager.beginTransaction().replace(R.id.cl_outfits_container, Outfits()).commit()
     }
 
+    override fun onBackPressed() {
+        val intent = Intent(this, NavigationActivity::class.java)
+        intent.putExtra(Constants.OUTFITS, 1)
+        startActivity(intent)
+    }
+
 }

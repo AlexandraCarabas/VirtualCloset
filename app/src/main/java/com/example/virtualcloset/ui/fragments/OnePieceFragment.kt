@@ -29,6 +29,7 @@ import com.example.virtualcloset.firestore.FirestoreClass
 import com.example.virtualcloset.models.Item
 import com.example.virtualcloset.models.Outfit
 import com.example.virtualcloset.ui.activities.NavigationActivity
+import com.example.virtualcloset.ui.activities.OutfitDetailsActivity
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.firestore.*
 import kotlin.math.abs
@@ -176,6 +177,11 @@ class OnePieceFragment : BaseFragment() {
             }
             saveDialog()
         }
+        val btnShuffle = view.findViewById<ImageView>(R.id.iv_shuffle)
+
+        btnShuffle.setOnClickListener {
+            shuffle()
+        }
 
         viewPager2Dress.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
@@ -210,7 +216,29 @@ class OnePieceFragment : BaseFragment() {
             }
         })
 
+
         return view
+    }
+
+    private fun shuffle() {
+        val randomDress = (0..itemArrayListDresses.size).random()
+        viewPager2Dress.currentItem = randomDress
+
+        val randomShoes = (0..itemArrayListShoes.size).random()
+        viewPager2Shoes.currentItem = randomShoes
+
+        if(viewPager2Extra.isVisible){
+            val randomTop = (0..itemArrayListTops.size).random()
+            viewPager2Extra.currentItem = randomTop
+        }
+        if(viewPager2Bags.isVisible){
+            val randomBag = (0..itemArrayListBags.size).random()
+            viewPager2Bags.currentItem = randomBag
+        }
+        if (viewPager2Accessories.isVisible){
+            val randomAcc = (0..itemArrayListAccessories.size).random()
+            viewPager2Accessories.currentItem = randomAcc
+        }
     }
 
     private fun setUpTransformer(){
@@ -308,6 +336,7 @@ class OnePieceFragment : BaseFragment() {
                     outfit.images,
                     outfit.items
                 )
+                outfit = outfitToBeAdded
                 FirestoreClass().addOutfitToDatabase(this, outfitToBeAdded)
             }
 
@@ -331,7 +360,10 @@ class OnePieceFragment : BaseFragment() {
             resources.getString(R.string.item_added_successfully),
             Toast.LENGTH_LONG
         ).show()
-        startActivity(Intent(this@OnePieceFragment.requireContext(), Outfits()::class.java))
+        val intent = Intent(this@OnePieceFragment.requireContext(), OutfitDetailsActivity::class.java)
+        intent.putExtra("outfit", outfit)
+        startActivity(intent)
+        //startActivity(Intent(this@OnePieceFragment.requireContext(), Outfits()::class.java))
         //onBackPressed()
         //this.activity?.finish()
 //        val navController = findNavController()

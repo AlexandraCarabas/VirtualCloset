@@ -26,14 +26,28 @@
             android:layout_height="wrap_content"
             app:layoutDescription="@xml/fragment_two_piece_xml_cl_scroll_scene">
 
+            <ImageView
+                android:id="@+id/iv_shuffle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="-4dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/icon_scuffle_64"
+                android:layout_marginTop="40dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp2_dress"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:paddingStart="80dp"
                 android:paddingEnd="80dp"
-                android:layout_marginTop="40dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/iv_shuffle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5">

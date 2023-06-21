@@ -33,13 +33,31 @@ class NavigationActivity : BaseActivity() {
         if(intent.hasExtra(Constants.EXTRA_USER_DETAILS)) {
             userDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
         }
+        if(intent.hasExtra((Constants.CLOSET))){
+            supportFragmentManager.beginTransaction().replace(R.id.frame_layout, closetFragment).commit()
+            //Toast.makeText(this,"Trebuie sa intru in closet",Toast.LENGTH_LONG).show()
+        }
+        else {
+            if (intent.hasExtra(Constants.OUTFITS)) {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, outfitFragment)
+                    .commit()
+                //Toast.makeText(this,"Trebuie sa intru in outfits",Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(
+                    this@NavigationActivity,
+                    "Hello $username",
+                    Toast.LENGTH_LONG
+                ).show()
+                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, homeFragment).commit()
+            }
+        }
 
-        Toast.makeText(
-            this@NavigationActivity,
-            "Hello $username",
-            Toast.LENGTH_LONG
-        ).show()
-        supportFragmentManager.beginTransaction().replace(R.id.frame_layout, homeFragment).commit()
+//        Toast.makeText(
+//            this@NavigationActivity,
+//            "Hello $username",
+//            Toast.LENGTH_LONG
+//        ).show()
+//        supportFragmentManager.beginTransaction().replace(R.id.frame_layout, homeFragment).commit()
         var bottomNav: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener(bottomListener)
     }

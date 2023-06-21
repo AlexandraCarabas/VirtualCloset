@@ -6,6 +6,8 @@ object Constants {
     const val SIGNED_IN_USERNAME: String = "signed_in_username"
     const val SIGNED_IN_UID : String = "signed_in_uid"
     const val EXTRA_USER_DETAILS: String = "extra_user_details"
+    const val HOME: String = "home"
+    const val CLOSET: String = "closet"
 
     const val ITEMS: String = "items"
     const val OUTFITS: String = "outfits"

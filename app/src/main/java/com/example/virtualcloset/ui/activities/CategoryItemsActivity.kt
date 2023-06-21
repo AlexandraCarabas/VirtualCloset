@@ -75,6 +75,12 @@ class CategoryItemsActivity : BaseActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        val intent = Intent(this, NavigationActivity::class.java)
+        intent.putExtra(Constants.CLOSET, 1)
+        startActivity(intent)
+    }
+
     override fun onResume() {
         super.onResume()
         myAdapter.notifyDataSetChanged()

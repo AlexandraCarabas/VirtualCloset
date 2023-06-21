@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ import com.example.virtualcloset.ui.activities.CreateOutfitActivity
 import com.example.virtualcloset.ui.activities.DisplayItemActivity
 import com.example.virtualcloset.ui.activities.OutfitDetailsActivity
 import com.example.virtualcloset.utils.Constants
+import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.firestore.*
 
 // TODO: Rename parameter arguments, choose names that match
