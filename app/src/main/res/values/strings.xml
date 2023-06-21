@@ -26,4 +26,6 @@
     <string name="err_msg_size_empty">Size field must not be empty!</string>
     <string name="err_msg_style_empty">Please choose style!</string>
     <string name="delete_dialog_msg">It will pe permanently deleted. Do you want to proceed?</string>
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="forward"><![CDATA[->]]></string>
 </resources>

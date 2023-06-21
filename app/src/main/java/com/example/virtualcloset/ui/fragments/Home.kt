@@ -23,6 +23,7 @@ import com.example.virtualcloset.databinding.FragmentHomeBinding
 import com.example.virtualcloset.R
 import com.example.virtualcloset.models.News
 import com.example.virtualcloset.ui.RecyclerViewAdapterNews
+import com.example.virtualcloset.ui.activities.CalendarActivity
 import com.example.virtualcloset.ui.activities.SignInActivity
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -84,7 +85,12 @@ class Home : Fragment(), RecyclerViewAdapterNews.OnNewsClick{
         myAdaptor = RecyclerViewAdapterNews(this)
         recyclerView.adapter = myAdaptor
 
-        fetchNews()
+
+        val ivCalendar = view.findViewById<ImageView>(R.id.ivCalendar)
+        ivCalendar.setOnClickListener {
+            startActivity(Intent(this@Home.requireContext(),CalendarActivity::class.java))
+        }
+        //fetchNews()
 
         return view
     }

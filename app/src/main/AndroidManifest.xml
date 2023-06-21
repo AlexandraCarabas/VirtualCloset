@@ -23,14 +23,20 @@
         android:theme="@style/Theme.VirtualCloset"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.WeekViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.CalendarActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.VirtualCloset">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.OutfitDetailsActivity"
@@ -61,8 +67,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.activities.MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
