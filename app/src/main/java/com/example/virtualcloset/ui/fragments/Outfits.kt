@@ -85,11 +85,6 @@ class Outfits : Fragment() {
         recyclerView.adapter = myAdapter
         myAdapter.setOnItemClickListener(object : RecyclerViewAdapterOutfit.onItemClickListener{
             override fun onItemClick(position: Int) {
-                Toast.makeText(
-                    this@Outfits.requireContext(),
-                    "You clicked on item nr. $position",
-                    Toast.LENGTH_SHORT
-                ).show()
                 val intent = Intent(this@Outfits.requireContext(), OutfitDetailsActivity::class.java)
                 intent.putExtra("outfit", outfitsArrayList[position])
                 startActivity(intent)

@@ -138,12 +138,10 @@ class OutfitDetailsActivity : BaseActivity() {
         val btnNo : Button = dialog.findViewById(R.id.btn_no)
 
         btnYes.setOnClickListener {
-            Toast.makeText(this,"Yes",Toast.LENGTH_SHORT).show()
             FirestoreClass().deleteOutfitFromDatabase(this, deleteID)
         }
 
         btnNo.setOnClickListener {
-            Toast.makeText(this,"No",Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
 
@@ -186,11 +184,6 @@ class OutfitDetailsActivity : BaseActivity() {
         with(builder){
             setTitle("Outfit Category")
             setItems(Constants.outfit_category_options) { dialog, which ->
-//                Toast.makeText(
-//                    this@DisplayItemActivity,
-//                    Constants.category_options[which] + " is clicked",
-//                    Toast.LENGTH_LONG
-//                ).show()
                 binding.tvOutfitCategory.text = Constants.outfit_category_options[which]
             }
             show()
@@ -202,11 +195,6 @@ class OutfitDetailsActivity : BaseActivity() {
         with(builder){
             setTitle("Outfit Style")
             setItems(Constants.style_options) { dialog, which ->
-//                Toast.makeText(
-//                    this@DisplayItemActivity,
-//                    Constants.style_options[which] + " is clicked",
-//                    Toast.LENGTH_LONG
-//                ).show()
                 binding.tvOutfitStyle.text = Constants.style_options[which]
             }
             show()

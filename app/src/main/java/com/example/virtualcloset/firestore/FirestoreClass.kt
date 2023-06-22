@@ -88,36 +88,6 @@ class FirestoreClass {
 
     }
 
-    fun addItemImageToStorage (activity: AddItemActivity, imageUri: Uri) : String{
-        var curentUserID : String = getCurrentUserID()
-        val items : String = Constants.USERS+"/"+ curentUserID+"/"+Constants.ITEMS
-        var path : String = ""
-        storageRef = FirebaseStorage.getInstance().reference.child(items).child(System.currentTimeMillis().toString())
-        imageUri?.let {
-            storageRef.putFile(it).addOnCompleteListener {task ->
-                if(task.isSuccessful){
-                    storageRef.downloadUrl
-                        .addOnSuccessListener { uri ->
-                        path = uri.toString()
-                            Toast.makeText(activity,"//////$path///////",Toast.LENGTH_LONG)
-                    }
-                        .addOnFailureListener { e ->
-                            Log.e(
-                                activity.javaClass.simpleName,
-                                "Error while addind item.",
-                                e
-                            )
-                        }
-
-                }else{
-                    Toast.makeText(activity, task.exception?.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        return path
-    }
-
     fun updateItemToDatabase(activity: Activity, itemID: String, itemHashMap: HashMap<String, Any>, imageUri: Uri){
         var curentUserID : String = getCurrentUserID()
 

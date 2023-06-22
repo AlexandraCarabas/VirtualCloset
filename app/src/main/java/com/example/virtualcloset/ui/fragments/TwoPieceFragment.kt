@@ -173,17 +173,14 @@ class TwoPieceFragment : BaseFragment() {
 
         btnAddExtra.setOnClickListener {
             isSelectedExtra = !isSelectedExtra
-            Toast.makeText(this@TwoPieceFragment.requireContext(),"extra selected, $isSelectedExtra",Toast.LENGTH_LONG)
         }
 
         ivAddBag.setOnClickListener {
             isSelectedBag = !isSelectedBag
-            Toast.makeText(this@TwoPieceFragment.requireContext(),"bag selected, $isSelectedBag",Toast.LENGTH_LONG)
         }
 
         ivAddAccessories.setOnClickListener {
             isSelectedAcc = !isSelectedAcc
-            Toast.makeText(this@TwoPieceFragment.requireContext(),"accesories selected, $isSelectedAcc",Toast.LENGTH_LONG)
         }
 
         btnSaveOutfit.setOnClickListener {
@@ -194,7 +191,6 @@ class TwoPieceFragment : BaseFragment() {
             outfit.images.add(itemShoes.image)
             outfit.items.add(itemShoes)
             if(isSelectedExtra||viewPager2Extra.isVisible){
-                Toast.makeText(this@TwoPieceFragment.requireContext(),"extra selected, $isSelectedExtra",Toast.LENGTH_LONG)
                 outfit.images.add(itemExtra.image)
                 outfit.items.add(itemExtra)
             }
@@ -207,7 +203,6 @@ class TwoPieceFragment : BaseFragment() {
                 outfit.items.add(itemAccessory)
             }
             saveDialog()
-            Toast.makeText(this.requireContext(),"Save clicked",Toast.LENGTH_SHORT).show()
         }
 
         val btnShuffle = view.findViewById<ImageView>(R.id.iv_shuffle)
@@ -221,11 +216,6 @@ class TwoPieceFragment : BaseFragment() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 itemTop = itemArrayList[position]
-//                Toast.makeText(
-//                    this@TwoPieceFragment.requireContext(),
-//                    "Item $it.name, [$position]",
-//                    Toast.LENGTH_SHORT
-//                ).show()
             }
         })
         viewPager2Bottoms.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
@@ -247,7 +237,6 @@ class TwoPieceFragment : BaseFragment() {
 //                    isSelectedExtra=true
 //                }
                 itemExtra = itemArrayList[position]
-                Toast.makeText(this@TwoPieceFragment.requireContext(),"extra selected, $isSelectedExtra",Toast.LENGTH_LONG)
             }
         })
         viewPager2Bags.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
@@ -309,11 +298,6 @@ class TwoPieceFragment : BaseFragment() {
             with(builder){
                 setTitle("Outfit Category")
                 setItems(Constants.outfit_category_options) { dialog, which ->
-                    Toast.makeText(
-                        this@TwoPieceFragment.requireContext(),
-                        Constants.outfit_category_options[which] + " is clicked",
-                        Toast.LENGTH_LONG
-                    ).show()
                     tvOutfitCategory.text = Constants.outfit_category_options[which]
                 }
                 show()
@@ -325,11 +309,6 @@ class TwoPieceFragment : BaseFragment() {
             with(builder){
                 setTitle("Item Style")
                 setItems(Constants.style_options) { dialog, which ->
-                    Toast.makeText(
-                        this@TwoPieceFragment.requireContext(),
-                        Constants.style_options[which] + " is clicked",
-                        Toast.LENGTH_LONG
-                    ).show()
                     tvOutfitStyle.text =Constants.style_options[which]
                 }
                 show()
@@ -339,15 +318,15 @@ class TwoPieceFragment : BaseFragment() {
         fun validate() : Boolean{
             return when{
                 TextUtils.isEmpty(etOutfitName.text.toString().trim{ it <= ' '}) -> {
-                    Toast.makeText(this@TwoPieceFragment.requireContext(), resources.getString(R.string.err_msg_name_empty), Toast.LENGTH_LONG)
+                    Toast.makeText(this@TwoPieceFragment.requireContext(), resources.getString(R.string.err_msg_name_empty), Toast.LENGTH_LONG).show()
                     false
                 }
                 TextUtils.isEmpty(tvOutfitCategory.text.toString().trim{ it <= ' '}) -> {
-                    Toast.makeText(this@TwoPieceFragment.requireContext(), resources.getString(R.string.err_msg_category_empty), Toast.LENGTH_LONG)
+                    Toast.makeText(this@TwoPieceFragment.requireContext(), resources.getString(R.string.err_msg_category_empty), Toast.LENGTH_LONG).show()
                     false
                 }
                 TextUtils.isEmpty(tvOutfitStyle.text.toString().trim{ it <= ' '}) -> {
-                    Toast.makeText(this@TwoPieceFragment.requireContext(), resources.getString(R.string.err_msg_category_empty), Toast.LENGTH_LONG)
+                    Toast.makeText(this@TwoPieceFragment.requireContext(), resources.getString(R.string.err_msg_category_empty), Toast.LENGTH_LONG).show()
                     false
                 }
                 else -> {

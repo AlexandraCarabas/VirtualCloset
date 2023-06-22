@@ -259,11 +259,6 @@ class AddItemActivity : BaseActivity() {
         with(builder){
             setTitle("Item Category")
             setItems(Constants.category_options) { dialog, which ->
-                Toast.makeText(
-                    this@AddItemActivity,
-                    Constants.category_options[which] + " is clicked",
-                    Toast.LENGTH_LONG
-                ).show()
                 binding.tvItemCategory.text = Constants.category_options[which]
             }
             show()
@@ -275,11 +270,6 @@ class AddItemActivity : BaseActivity() {
         with(builder){
             setTitle("Item Style")
             setItems(Constants.style_options) { dialog, which ->
-                Toast.makeText(
-                    this@AddItemActivity,
-                    Constants.style_options[which] + " is clicked",
-                    Toast.LENGTH_LONG
-                ).show()
                 binding.tvItemStyle.text =Constants.style_options[which]
             }
             show()
@@ -402,11 +392,6 @@ class AddItemActivity : BaseActivity() {
                 FirestoreClass().addItemToDatabase(this@AddItemActivity,item,mSelectedImageFileUri!!)
             }
             else{
-                val i = mSelectedImageFileUri.toString()
-                showErrorSnackBar("**** path $i ",true)
-                Toast.makeText(this,"*****Path $i *********",Toast.LENGTH_LONG)
-                //storageImagePath = FirestoreClass().addItemImageToStorage(this, mSelectedImageFileUri!!)
-                //Toast.makeText(this,"Path $storageImagePath",Toast.LENGTH_LONG)
                 val item = Item(
                     System.currentTimeMillis().toString(),
                     itemName,

@@ -43,11 +43,6 @@ class CategoryItemsActivity : BaseActivity() {
         recyclerView.adapter = myAdapter
         myAdapter.setOnItemClickListener(object: RecyclerViewAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
-//                Toast.makeText(
-//                    this@CategoryItemsActivity,
-//                    "You clicked on item nr. $position",
-//                    Toast.LENGTH_SHORT
-//                ).show()
                 val intent = Intent(this@CategoryItemsActivity, DisplayItemActivity::class.java)
                 intent.putExtra("item", itemArrayList[position])
                 startActivity(intent)

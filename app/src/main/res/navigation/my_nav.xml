@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/home2">
+    app:startDestination="@id/splashActivity">
 
     <fragment
         android:id="@+id/home2"
@@ -21,4 +21,19 @@
         android:label="fragment_outfits"
         tools:layout="@layout/fragment_outfits"
         />
+    <activity
+        android:id="@+id/calendarActivity2"
+        android:name="com.example.virtualcloset.ui.activities.CalendarActivity"
+        android:label="activity_calendar"
+        tools:layout="@layout/activity_calendar" />
+    <activity
+        android:id="@+id/splashActivity"
+        android:name="com.example.virtualcloset.ui.activities.SplashActivity"
+        android:label="activity_splash"
+        tools:layout="@layout/activity_splash" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.virtualcloset.ui.activities.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>

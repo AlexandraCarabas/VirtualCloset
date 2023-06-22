@@ -209,12 +209,10 @@ class DisplayItemActivity : BaseActivity() {
         val btnNo : Button = dialog.findViewById(R.id.btn_no)
 
         btnYes.setOnClickListener {
-            Toast.makeText(this,"Yes",Toast.LENGTH_SHORT).show()
             FirestoreClass().deleteItemFromDatabase(this, itemID)
         }
 
         btnNo.setOnClickListener {
-            Toast.makeText(this,"No",Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
 
