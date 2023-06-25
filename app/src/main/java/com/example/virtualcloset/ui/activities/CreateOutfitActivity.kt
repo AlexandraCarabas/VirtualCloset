@@ -1,8 +1,6 @@
 package com.example.virtualcloset.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.virtualcloset.R
 import com.example.virtualcloset.databinding.ActivityCreateOutfitBinding

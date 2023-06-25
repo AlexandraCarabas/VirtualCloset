@@ -4,28 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.virtualcloset.R
 import com.example.virtualcloset.ui.CalendarAdapter
-import com.example.virtualcloset.utils.CalendarUtils
 import java.time.LocalDate
-import java.time.LocalDate.from
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
-//import com.example.virtualcloset.utils.CalendarUtils.daysInMonthArray
-//import com.example.virtualcloset.utils.CalendarUtils.monthYearFromDate
 
 class CalendarActivity : AppCompatActivity() {
 
     private lateinit var monthYearText: TextView
     private lateinit var calendarRecyclerView : RecyclerView
-    //private lateinit var calendarAdapter : CalendarAdapter
-    //private lateinit var daysInMonth: ArrayList<LocalDate?>
     private lateinit var selectedDate: LocalDate
 
     override fun onCreate(savedInstanceState: Bundle?) {

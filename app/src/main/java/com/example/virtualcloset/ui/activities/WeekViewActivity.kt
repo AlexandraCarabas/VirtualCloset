@@ -19,10 +19,7 @@ class WeekViewActivity : AppCompatActivity() {
 
     private lateinit var  monthYearText: TextView
     private lateinit var calendarRecyclerView: RecyclerView
-    //private lateinit var calendarAdapter : CalendarAdapter
-    ///private lateinit var daysInMonth: ArrayList<LocalDate?>
     private lateinit var selectedDate: LocalDate
-    //var calendarUtils = CalendarUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,23 +34,6 @@ class WeekViewActivity : AppCompatActivity() {
         calendarRecyclerView = findViewById(R.id.rvCalendarRecyclerView)
         monthYearText = findViewById(R.id.tvMonthYear)
     }
-
-//    private fun setWeekView() {
-//        monthYearText.setText(calendarUtils.monthYearFromDate(calendarUtils.selectedDate))
-//        val days: ArrayList<LocalDate?> = calendarUtils.daysInWeekArray(calendarUtils.selectedDate)!!
-//        val calendarAdapter = CalendarAdapter(days)
-//        val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(applicationContext, 7)
-//        calendarRecyclerView.layoutManager = layoutManager
-//        calendarRecyclerView.adapter = calendarAdapter
-//
-//        calendarAdapter.setOnItemClickListener(object: CalendarAdapter.onItemClickListener{
-//            override fun onItemClick(position: Int, date: LocalDate) {
-//               calendarUtils.selectedDate = date
-//
-//            }
-//
-//        })
-//    }
 
     private fun setWeekView() {
         monthYearText.setText(monthYearFromDate(selectedDate))

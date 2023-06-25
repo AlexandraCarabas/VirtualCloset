@@ -2,7 +2,6 @@ package com.example.virtualcloset.ui.activities
 
 import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.virtualcloset.ui.fragments.Closet
 import com.example.virtualcloset.ui.fragments.Home

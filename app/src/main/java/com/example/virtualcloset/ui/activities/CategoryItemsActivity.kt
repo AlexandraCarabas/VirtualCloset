@@ -2,10 +2,8 @@ package com.example.virtualcloset.ui.activities
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.virtualcloset.R
@@ -85,9 +83,6 @@ class CategoryItemsActivity : BaseActivity() {
         val sharedPreferences = getSharedPreferences(Constants.VIRTUALCLOSET_PREFERENCES, Context.MODE_PRIVATE)
         val username = sharedPreferences?.getString(Constants.SIGNED_IN_USERNAME, "")!!
         val userUid = sharedPreferences?.getString(Constants.SIGNED_IN_UID,"")!!
-
-//        //var itemList : ArrayList<Item> =
-//
         val items : String = Constants.USERS+"/"+ userUid + "/" + Constants.ITEMS
 
         db = FirebaseFirestore.getInstance()

@@ -6,14 +6,11 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.example.virtualcloset.models.Item
 import com.example.virtualcloset.models.Outfit
 import com.example.virtualcloset.models.User
 import com.example.virtualcloset.ui.activities.*
 import com.example.virtualcloset.ui.fragments.BaseFragment
-import com.example.virtualcloset.ui.fragments.TwoPieceFragment
 import com.example.virtualcloset.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*

@@ -90,7 +90,7 @@ class Home : Fragment(), RecyclerViewAdapterNews.OnNewsClick{
         ivCalendar.setOnClickListener {
             startActivity(Intent(this@Home.requireContext(),CalendarActivity::class.java))
         }
-        //fetchNews()
+        fetchNews()
 
         return view
     }

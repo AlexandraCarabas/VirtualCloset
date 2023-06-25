@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -21,7 +20,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import com.example.virtualcloset.BuildConfig
 import com.example.virtualcloset.R
@@ -51,7 +49,6 @@ class DisplayItemActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDisplayItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_display_item)
 
         val myItem = intent.getParcelableExtra<Item>("item")
         var position : Int = 0
@@ -79,7 +76,6 @@ class DisplayItemActivity : BaseActivity() {
 
         if(myItem.image.isNotEmpty())
             Picasso.get().load(myItem.image).into(binding.ivItemPhoto)
-        //binding.ivItemPhoto.setImageURI(myItem.image.toUri())
         binding.etItemName.setText(myItem.name)
         binding.etItemPattern.setText(myItem.pattern)
         binding.etItemSize.setText(myItem.size)
@@ -224,16 +220,11 @@ class DisplayItemActivity : BaseActivity() {
         val intent = Intent(this, CategoryItemsActivity::class.java)
         intent.putExtra(Constants.CATEGORY, itemCategory)
         startActivity(intent)
-        //supportFragmentManager.beginTransaction().replace(,Outfits()).commit()
-        ///onBackPressed()
-        //supportFragmentManager.beginTransaction().replace(R.id.cl_outfits_container, Outfits()).commit()
     }
 
     private var latestTmpUri: Uri? = null
 
     fun takePhoto() {
-//        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        resultLauncher.launch(cameraIntent)
         lifecycleScope.launchWhenStarted {
             getTempFileUri().let { uri->
                 latestTmpUri = uri
@@ -322,13 +313,9 @@ class DisplayItemActivity : BaseActivity() {
     var resultLauncher2 = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if(result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
-//            val thumbNail: Bitmap = result.data!!.extras!!.get("data") as Bitmap
-//            binding.ivItemPhoto.setImageBitmap(thumbNail)
             if(data != null) {
                 try {
                     mSelectedImageFileUri = data.data!!
-
-                    //binding.ivItemPhoto.setImageURI(selectedImageFileUri)
                     GlideLoader(this).loadUserPicture(mSelectedImageFileUri!!, binding.ivItemPhoto)
                 }catch ( e: IOException) {
                     e.printStackTrace()
@@ -347,11 +334,6 @@ class DisplayItemActivity : BaseActivity() {
         with(builder){
             setTitle("Item Category")
             setItems(Constants.category_options) { dialog, which ->
-//                Toast.makeText(
-//                    this@DisplayItemActivity,
-//                    Constants.category_options[which] + " is clicked",
-//                    Toast.LENGTH_LONG
-//                ).show()
                 binding.tvItemCategory.text = Constants.category_options[which]
             }
             show()
@@ -363,11 +345,6 @@ class DisplayItemActivity : BaseActivity() {
         with(builder){
             setTitle("Item Style")
             setItems(Constants.style_options) { dialog, which ->
-//                Toast.makeText(
-//                    this@DisplayItemActivity,
-//                    Constants.style_options[which] + " is clicked",
-//                    Toast.LENGTH_LONG
-//                ).show()
                 binding.tvItemStyle.text = Constants.style_options[which]
             }
             show()

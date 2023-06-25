@@ -65,8 +65,6 @@ class OutfitDetailsActivity : BaseActivity() {
 
         })
 
-        //EventChangeListener()
-
         binding.tvTitle.text = myOutfit?.name
 
         isEditable = false
@@ -76,8 +74,8 @@ class OutfitDetailsActivity : BaseActivity() {
         binding.btnSaveOutfit.visibility = View.INVISIBLE
 
         binding.etOutfitName.setText(myOutfit.name)
-        binding.tvOutfitCategory.setText(myOutfit.style)
-        binding.tvOutfitStyle.setText(myOutfit.category)
+        binding.tvOutfitCategory.setText(myOutfit.category)
+        binding.tvOutfitStyle.setText(myOutfit.style)
 
         binding.ivDeleteOutfit.setOnClickListener {
             delete_outfit(outfitID)
